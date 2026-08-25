@@ -51,6 +51,19 @@
       localStorage.setItem('theme', 'light');
     }
   });
+
+  // Texto que quieres que se mueva en la pestaña
+  let textoOriginal = "Nestor Gomez - Desarrollador Freelance";
+  let espacio = " ";
+  let textoAnimado = textoOriginal + espacio;
+
+  setInterval(function() {
+      // Mueve el primer carácter al final del string para crear el efecto de marquesina
+      textoAnimado = textoAnimado.substring(1) + textoAnimado.substring(0, 1);
+      document.title = textoAnimado;
+  }, 250); // El número 250 indica la velocidad en milisegundos
+
+
 </script>
 
 </body>
