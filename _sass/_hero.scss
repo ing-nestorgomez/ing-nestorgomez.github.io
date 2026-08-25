@@ -81,10 +81,13 @@
   }
 
   .slide-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
   .slide-content {
     position: absolute;
