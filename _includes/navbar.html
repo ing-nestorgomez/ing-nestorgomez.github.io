@@ -1,15 +1,36 @@
 <header class="main-header">
   <div class="container main-header-content">
+    
+    <!-- Contenedor del Logo con las 3 variantes -->
     <div class="logo">
-      <a href="/"><strong>Néstor Gómez</strong></a>
+      <a href="{{ '/' | relative_url }}">
+        <img src="{{ '/assets/images/logo-a.svg' | relative_url }}" alt="Logo Néstor Gómez" class="site-logo logo-light-desktop">
+        <img src="{{ '/assets/images/logo-b.svg' | relative_url }}" alt="Logo Néstor Gómez" class="site-logo logo-dark-desktop">
+        <img src="{{ '/assets/images/logo-c.svg' | relative_url }}" alt="Logo Néstor Gómez" class="site-logo logo-mobile">
+      </a>
     </div>
-    <nav class="main-nav">
-      <ul>
-        <li><a href="/">Inicio</a></li>
-        <li><a href="/sobre-mi">Sobre mí</a></li>
-        <li><a href="/proyectos">Proyectos</a></li>
-        <li><a href="/contacto">Contacto</a></li>
-      </ul>
-    </nav>
+
+    <!-- Navegación y Acciones -->
+    <div class="nav-wrapper">
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="{{ '/' | relative_url }}">Inicio</a></li>
+          <li><a href="{{ '/sobre-mi' | relative_url }}">Sobre mí</a></li>
+          <li><a href="{{ '/proyectos' | relative_url }}">Proyectos</a></li>
+          <li><a href="{{ '/contacto' | relative_url }}">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <!-- Botón Modo Oscuro / Claro -->
+      <button id="themeToggle" class="theme-toggle-btn" aria-label="Cambiar Tema">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <!-- Botón Menú Hamburguesa (Móvil) -->
+      <button id="menuToggle" class="menu-toggle-btn" aria-label="Abrir Menú">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
   </div>
 </header>
