@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("canvas");
   const slides = document.querySelectorAll(".slide");
   const buttons = document.querySelectorAll(".slider-btn");
   let currentIndex = 0;
@@ -8,24 +7,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!slides.length) return;
 
+  function playCurrentVideo() {
+    const currentVid = slides[currentIndex].querySelector("video");
+    if (currentVid) {
+      currentVid.muted = true; // Imprescindible para evitar el bloqueo del navegador
+      const playPromise = currentVid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Si el navegador aún bloquea, reintenta al interactuar
+        });
+      }
+    }
+  }
+
   function goToSlide(targetIndex) {
     if (targetIndex === currentIndex) return;
 
     const currentSlide = slides[currentIndex];
     const nextSlide = slides[targetIndex];
 
-    currentSlide.querySelector("video").pause();
-    buttons[currentIndex].classList.remove("active");
+    const prevVid = currentSlide.querySelector("video");
+    if (prevVid) prevVid.pause();
 
+    buttons[currentIndex].classList.remove("active");
     currentSlide.classList.remove("active");
-    nextSlide.classList.add("active");
-    
-    const nextVideo = nextSlide.querySelector("video");
-    nextVideo.currentTime = 0;
-    nextVideo.play().catch(() => {});
 
     currentIndex = targetIndex;
+
+    nextSlide.classList.add("active");
     buttons[currentIndex].classList.add("active");
+
+    playCurrentVideo();
     resetTimer();
   }
 
@@ -49,13 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   slides.forEach((slide) => {
-    slide.querySelector("video").addEventListener("ended", () => {
-      let nextIndex = (currentIndex + 1) % slides.length;
-      goToSlide(nextIndex);
-    });
+    const vid = slide.querySelector("video");
+    if (vid) {
+      vid.addEventListener("ended", () => {
+        let nextIndex = (currentIndex + 1) % slides.length;
+        goToSlide(nextIndex);
+      });
+    }
   });
 
-  const firstVid = slides[0].querySelector("video");
-  if (firstVid) firstVid.play().catch(() => {});
+  playCurrentVideo();
   startTimer();
 });
