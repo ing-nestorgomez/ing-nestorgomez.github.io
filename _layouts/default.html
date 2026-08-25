@@ -20,19 +20,19 @@
   {% include footer.html %}
 
   <script>
-  // Menú Hamburguesa
+  // Menú Hamburguesa Animado (Style #2)
   const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
+  const mainHeader = document.querySelector('.main-header');
 
-  menuToggle.addEventListener('click', () => {
-    mainNav.classList.toggle('is-active');
+  menuToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    mainHeader.classList.toggle('nav--active');
   });
 
   // Conmutador Modo Oscuro / Claro
   const themeToggle = document.getElementById('themeToggle');
   const themeIcon = themeToggle.querySelector('i');
   
-  // Guardar preferencia en localStorage
   const currentTheme = localStorage.getItem('theme');
   if (currentTheme === 'dark') {
     document.body.classList.add('dark-mode');

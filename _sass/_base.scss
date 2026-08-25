@@ -41,7 +41,14 @@ body.dark-mode {
     }
   }
 
-  .theme-toggle-btn, .menu-toggle-btn {
+  .theme-toggle-btn {
     color: #f1f1f1;
+  }
+
+  /* Nuevas reglas agregadas para el icono hamburguesa animado */
+  .nav__icon,
+  .nav__icon:before,
+  .nav__icon:after {
+    background-color: #ffffff;
   }
 }

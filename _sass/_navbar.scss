@@ -1,3 +1,9 @@
+// Variables del Menú
+$nav-color: #333333;
+$nav-color-dark: #ffffff;
+$duration: 300ms;
+$ease: ease-in-out;
+
 .main-header {
   background-color: #ffffff;
   border-bottom: 1px solid #eaeaea;
@@ -14,7 +20,7 @@
   }
 }
 
-// Control de visibilidad de los Logos
+// Visibilidad de Logos
 .logo {
   display: flex;
   align-items: center;
@@ -22,43 +28,91 @@
   .site-logo {
     height: 42px;
     width: auto;
-    display: none; // Ocultos por defecto
+    display: none;
   }
 }
 
-/* Pantallas Grandes (Escritorio) */
 @media (min-width: 769px) {
-  // Modo Claro: Logo A
-  body:not(.dark-mode) .logo-light-desktop {
-    display: block;
-  }
-
-  // Modo Oscuro: Logo B
-  body.dark-mode .logo-dark-desktop {
-    display: block;
-  }
+  body:not(.dark-mode) .logo-light-desktop { display: block; }
+  body.dark-mode .logo-dark-desktop { display: block; }
 }
 
-/* Pantallas Pequeñas (Móviles / Tablets): Siempre Logo C */
 @media (max-width: 768px) {
-  .logo-mobile {
-    display: block !important;
-  }
+  .logo-mobile { display: block !important; }
 }
 
-// Menú y Acciones
 .nav-wrapper {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.main-nav ul {
-  display: flex;
-  list-style: none;
-  gap: 25px;
+// Icono Hamburguesa Animado (Base + Style #2)
+.nav__trigger {
+  display: none; // Oculto en escritorio
+  position: relative;
+  width: 30px;
+  height: 25px;
+  z-index: 200;
+  cursor: pointer;
+}
 
-  a {
+.nav__icon {
+  display: inline-block;
+  position: relative;
+  width: 30px;
+  height: 4px;
+  background-color: $nav-color;
+  transition: background-color $duration, transform $duration $ease;
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 4px;
+    position: absolute;
+    background: $nav-color;
+    transition: margin $duration, transform $duration $ease, background-color $duration;
+  }
+
+  &:before { margin-top: -8px; }
+  &:after { margin-top: 8px; }
+}
+
+/* Animación cuando el menú está activo (Style #2) */
+.nav--active {
+  .nav__trigger {
+    opacity: 0.8;
+  }
+
+  .nav__icon {
+    background: transparent !important;
+    transform: rotate(135deg);
+
+    &:before {
+      margin-top: 0;
+      transform: rotate(90deg);
+    }
+
+    &:after {
+      margin-top: 0;
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// Lista del Menú
+.main-nav {
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__link {
     text-decoration: none;
     color: #4a5568;
     font-weight: 600;
@@ -68,7 +122,7 @@
   }
 }
 
-.theme-toggle-btn, .menu-toggle-btn {
+.theme-toggle-btn {
   background: transparent;
   border: none;
   font-size: 1.2rem;
@@ -77,18 +131,17 @@
   padding: 5px;
 }
 
-.menu-toggle-btn {
-  display: none; // Oculto en escritorio
-}
-
-// Ajustes del Menú Responsivo (Móvil)
+/* Reglas Responsivas y Animación 3D (Móvil) */
 @media (max-width: 768px) {
-  .menu-toggle-btn {
+  .nav__trigger {
     display: block;
   }
 
+  .main-header {
+    perspective: 1000px; // Permite la animación 3D
+  }
+
   .main-nav {
-    display: none; // Oculto por defecto en móvil
     position: absolute;
     top: 70px;
     left: 0;
@@ -96,15 +149,24 @@
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px 0;
-
-    &.is-active {
-      display: block;
-    }
+    
+    // Estado inicial plegado 3D
+    transform: rotateY(180deg);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform $duration $ease, opacity $duration $ease;
 
     ul {
       flex-direction: column;
       align-items: center;
       gap: 15px;
     }
+  }
+
+  // Estado Desplegado 3D
+  .nav--active .main-nav {
+    transform: rotateY(360deg);
+    opacity: 1;
+    pointer-events: auto;
   }
 }
