@@ -4,7 +4,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s, border-color 0.3s;
 
   &-content {
     display: flex;
@@ -14,21 +14,49 @@
   }
 }
 
-.logo a {
-  font-size: 1.4rem;
-  color: #2c3e50;
-  text-decoration: none;
+// Control de visibilidad de los Logos
+.logo {
+  display: flex;
+  align-items: center;
+
+  .site-logo {
+    height: 42px;
+    width: auto;
+    display: none; // Ocultos por defecto
+  }
 }
 
-.main-nav {
-  ul {
-    display: flex;
-    list-style: none;
+/* Pantallas Grandes (Escritorio) */
+@media (min-width: 769px) {
+  // Modo Claro: Logo A
+  body:not(.dark-mode) .logo-light-desktop {
+    display: block;
   }
 
-  li {
-    margin-left: 25px;
+  // Modo Oscuro: Logo B
+  body.dark-mode .logo-dark-desktop {
+    display: block;
   }
+}
+
+/* Pantallas Pequeñas (Móviles / Tablets): Siempre Logo C */
+@media (max-width: 768px) {
+  .logo-mobile {
+    display: block !important;
+  }
+}
+
+// Menú y Acciones
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
 
   a {
     text-decoration: none;
@@ -36,8 +64,47 @@
     font-weight: 600;
     transition: color 0.2s;
 
-    &:hover {
-      color: #007acc;
+    &:hover { color: #007acc; }
+  }
+}
+
+.theme-toggle-btn, .menu-toggle-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #4a5568;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.menu-toggle-btn {
+  display: none; // Oculto en escritorio
+}
+
+// Ajustes del Menú Responsivo (Móvil)
+@media (max-width: 768px) {
+  .menu-toggle-btn {
+    display: block;
+  }
+
+  .main-nav {
+    display: none; // Oculto por defecto en móvil
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+
+    &.is-active {
+      display: block;
+    }
+
+    ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
     }
   }
 }
