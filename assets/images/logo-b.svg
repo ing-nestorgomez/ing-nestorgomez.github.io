@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="105.47369mm"
+   height="33.741779mm"
+   viewBox="0 0 105.47369 33.741779"
+   version="1.1"
+   id="svg516"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="logo-b.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview518"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.59"
+     inkscape:cx="183.6478"
+     inkscape:cy="78.930818"
+     inkscape:window-width="1366"
+     inkscape:window-height="732"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g497" />
+  <defs
+     id="defs513" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-20.874177,-133.41827)">
+    <g
+       id="g497"
+       transform="matrix(0.60064022,0,0,0.60064022,-321.20602,-122.92528)">
+      <g
+         id="g485"
+         transform="translate(49.94935,53.3703)">
+        <path
+           id="path479"
+           style="fill:#064690;fill-opacity:1;stroke-width:0.0730368;paint-order:stroke markers fill;stop-color:#000000"
+           d="m 524.13474,389.40663 22.0903,-14.10016 v 38.44441 l -22.0903,14.10016 z"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           id="path481"
+           style="fill:#28a8ea;fill-opacity:1;stroke-width:0.0730368;paint-order:stroke markers fill;stop-color:#000000"
+           d="m 558.55577,389.40663 22.0903,-14.10016 v 38.44441 l -22.0903,14.10016 z"
+           sodipodi:nodetypes="ccccc" />
+        <path
+           id="path483"
+           style="fill:#0078d4;fill-opacity:1;stroke-width:0.0793039;paint-order:stroke markers fill;stop-color:#000000"
+           d="m 524.13476,389.41488 21.72434,-14.80032 34.89039,39.27308 -22.27923,14.24411 z"
+           sodipodi:nodetypes="ccccc" />
+      </g>
+      <g
+         id="g495"
+         transform="translate(49.570301,2.0139591)"
+         style="fill:#ffffff">
+        <text
+           xml:space="preserve"
+           style="font-size:25.8892px;line-height:1.25;font-family:Firdaus;-inkscape-font-specification:Firdaus;fill:#ffffff;stroke-width:0.809039"
+           x="592.46674"
+           y="451.87762"
+           id="text489"><tspan
+             sodipodi:role="line"
+             id="tspan487"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Orbitron;-inkscape-font-specification:Orbitron;fill:#ffffff;stroke-width:0.809039"
+             x="592.46674"
+             y="451.87762">Néstor</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:25.8892px;line-height:1.25;font-family:Firdaus;-inkscape-font-specification:Firdaus;fill:#ffffff;stroke-width:0.809039"
+           x="592.46674"
+           y="473.74905"
+           id="text493"><tspan
+             sodipodi:role="line"
+             id="tspan491"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Orbitron;-inkscape-font-specification:Orbitron;fill:#ffffff;stroke-width:0.809039"
+             x="592.46674"
+             y="473.74905">Gómez</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
