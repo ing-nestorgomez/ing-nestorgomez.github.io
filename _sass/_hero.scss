@@ -71,7 +71,7 @@
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.6s ease, visibility 0.6s ease;
-  z-index: 1; /* Debajo del Canvas */
+  z-index: 1;
 
   &.active {
     opacity: 1;
@@ -89,25 +89,26 @@
 
   .slide-content {
     position: absolute;
-    top: 50%; /* Centrado vertical para evitar choque con el header */
+    top: 50%;
     left: 180px;
     transform: translateY(-50%);
+    width: 100%;
     max-width: 600px;
     color: #ffffff;
-    z-index: 5; /* Por encima del Canvas */
+    z-index: 5;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 
     /* ====================================================
-       ESTADOS POR DEFECTO Y SALIDA (Regresan a la izquierda)
+       ESTADOS POR DEFECTO Y SALIDA (Ocultos a la izquierda)
        ==================================================== */
     h2, p, .slide-img {
       opacity: 0;
-      transform: translateX(-60px); /* Ocultos a la izquierda */
+      transform: translateX(-60px);
       transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
                   opacity 0.5s ease;
     }
 
-    /* Retrasos para la Animación de Salida (Sale rápido) */
+    /* Retrasos de Salida */
     h2 { transition-delay: 0.1s; }
     p { transition-delay: 0.05s; }
     .slide-img { transition-delay: 0s; }
@@ -121,21 +122,46 @@
     p {
       font-size: 1.2rem;
       line-height: 1.5;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
-    /* Contenedor de las imágenes complementarias */
+    /* Contenedor con imágenes superpuestas y proporcionales */
     .slide-images {
       display: flex;
-      gap: 15px;
+      align-items: center;
+      margin-bottom: 20px;
+      width: 100%;
 
       .slide-img {
-        width: 80px;
-        height: 80px;
+        height: auto;
+        aspect-ratio: 16 / 10;
         object-fit: cover;
         border-radius: 12px;
         border: 2px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        margin-right: -8%; /* Crea el efecto de superposición hacia la derecha */
+        position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        /* Clases de Tamaño y Capas definidas por HTML */
+        &.img-40 {
+          width: 40%;
+          z-index: 3; /* Capa más alta */
+        }
+
+        &.img-30 {
+          width: 30%;
+          z-index: 2;
+        }
+
+        &.img-20 {
+          width: 20%;
+          z-index: 1; /* Capa más baja */
+        }
       }
     }
   }
@@ -147,22 +173,15 @@
     
     h2, p, .slide-img {
       opacity: 1;
-      transform: translateX(0); /* Entran a su posición original */
+      transform: translateX(0);
     }
 
-    /* Retrasos para la Animación de Entrada (Efecto Stagger) */
-    h2 { 
-      transition-delay: 0.3s; 
-    }
-    p { 
-      transition-delay: 0.5s; 
-    }
-    .slide-img:nth-child(1) { 
-      transition-delay: 0.7s; 
-    }
-    .slide-img:nth-child(2) { 
-      transition-delay: 0.85s; 
-    }
+    /* Retrasos para la Animación de Entrada Escalonada */
+    .slide-img:nth-child(1) { transition-delay: 0.2s; }
+    .slide-img:nth-child(2) { transition-delay: 0.35s; }
+    .slide-img:nth-child(3) { transition-delay: 0.5s; }
+    h2 { transition-delay: 0.65s; }
+    p { transition-delay: 0.8s; }
   }
 }
 
@@ -176,12 +195,13 @@
   .slide-content {
     left: 70px;
     right: 20px;
+    max-width: calc(100vw - 90px);
+    
     h2 { font-size: 2rem; }
     p { font-size: 1rem; }
 
     .slide-images .slide-img {
-      width: 60px;
-      height: 60px;
+      margin-right: -12%; /* Mayor solapamiento en pantallas pequeñas */
     }
   }
 }
