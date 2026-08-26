@@ -184,13 +184,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- LÓGICA DEL SLIDER ---
   function playCurrentVideo() {
-    const currentVid = slides[currentIndex].querySelector("video");
-    if (currentVid) {
-      currentVid.muted = true;
-      const playPromise = currentVid.play();
-      if (playPromise !== undefined) playPromise.catch(() => {});
+  const currentSlide = slides[currentIndex];
+  if (!currentSlide) return;
+
+  const currentVid = currentSlide.querySelector("video");
+  if (currentVid) {
+    currentVid.muted = true;
+    currentVid.currentTime = 0; // Reinicia el video desde el inicio
+    
+    // Forzar la carga si el navegador lo mantuvo en pausa
+    if (currentVid.readyState < 2) {
+      currentVid.load();
+    }
+
+    const playPromise = currentVid.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((error) => {
+        console.warn("Autoplay bloqueado o interrumpido:", error);
+      });
     }
   }
+}
 
   function goToSlide(targetIndex) {
     if (targetIndex === currentIndex) return;
