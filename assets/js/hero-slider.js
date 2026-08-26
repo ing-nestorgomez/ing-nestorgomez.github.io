@@ -7,21 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
   let autoSlideTimer = null;
   const slideDuration = 8000;
+  let isAnimating = false;
 
   if (!slides.length || !heroContainer) return;
 
-  // Pre-cargar y silenciar todos los vídeos al inicio para evitar pantallas en negro
-  slides.forEach((slide) => {
-    const vid = slide.querySelector("video");
-    if (vid) {
-      vid.muted = true;
-      vid.playsInline = true;
-      vid.preload = "auto";
-      vid.load();
-    }
-  });
-
-  // Setup Canvas para procesamiento de fragmentos de imagen
+  // 1. Configuración del Canvas
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
   canvas.style.position = "absolute";
@@ -45,23 +35,32 @@ document.addEventListener("DOMContentLoaded", () => {
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
 
-  let isAnimating = false;
+  // 2. Precarga e inicialización de todos los vídeos
+  slides.forEach((slide) => {
+    const vid = slide.querySelector("video");
+    if (vid) {
+      vid.muted = true;
+      vid.playsInline = true;
+      vid.preload = "auto";
+      // Cargar activamente sin reproducir
+      vid.load();
+    }
+  });
 
-  // Captura el fotograma actual del video o la imagen del slide
+  // Obtener fuente válida para el canvas
   function getSlideSource(slide) {
     const video = slide.querySelector("video");
-    if (video && video.readyState >= 2) {
+    if (video && video.readyState >= 2 && video.videoWidth > 0) {
       return video;
     }
     const img = slide.querySelector("img");
-    return img || null;
+    if (img && img.complete && img.naturalWidth > 0) {
+      return img;
+    }
+    return null;
   }
 
-  // ==========================================
-  // EFECTOS DE FRAGMENTACIÓN REAL DE IMAGEN/VIDEO
-  // ==========================================
-
-  // Efecto 1: El video se rompe en cuadros reales y explotan
+  // --- EFECTOS DE CANVA ---
   function explosiveImageBlocks(sourceElement) {
     const cols = 10, rows = 6;
     const bw = canvas.width / cols;
@@ -71,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const srcW = sourceElement.videoWidth || sourceElement.width || canvas.width;
     const srcH = sourceElement.videoHeight || sourceElement.height || canvas.height;
 
-    // Recortar la textura del video/imagen en trozos
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         blocks.push({
@@ -92,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let progress = 0;
     function render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      progress += 0.025;
+      progress += 0.03;
 
       blocks.forEach(b => {
         b.x += b.vx;
@@ -125,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   }
 
-  // Efecto 2: El video se divide en persianas/franjas verticales que se desplazan
   function curtainImageSlats(sourceElement) {
     const cols = 12;
     const bw = canvas.width / cols;
@@ -149,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let progress = 0;
     function render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      progress += 0.025;
+      progress += 0.03;
 
       slats.forEach(s => {
         s.y += s.speedY;
@@ -176,14 +173,11 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   }
 
-  // Controlador de efectos reales
   function playTransitionEffect(targetIndex, currentSlide) {
     if (isAnimating) return;
 
     const sourceEl = getSlideSource(currentSlide);
-    
-    // Si no se puede extraer la textura, cancela la animación del canvas para no bloquear
-    if (!sourceEl) return;
+    if (!sourceEl) return; // Si el vídeo previo no está listo, se salta la animación canvas
 
     isAnimating = true;
 
@@ -194,26 +188,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Reproducción controlada y reinicio del vídeo activo
-  function playCurrentVideo() {
-    const currentSlide = slides[currentIndex];
-    if (!currentSlide) return;
+  // --- CONTROL DE REPRODUCCIÓN SEGURO ---
+  function playVideoSafely(video) {
+    if (!video) return;
 
-    const currentVid = currentSlide.querySelector("video");
-    if (currentVid) {
-      currentVid.muted = true;
-      currentVid.currentTime = 0;
+    video.muted = true;
+    
+    // Si el vídeo no ha cargado lo suficiente, forzar carga
+    if (video.readyState < 2) {
+      video.load();
+    }
 
-      if (currentVid.readyState < 2) {
-        currentVid.load();
-      }
-
-      const playPromise = currentVid.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.warn("Autoplay diferido por el navegador:", error);
-        });
-      }
+    const promise = video.play();
+    if (promise !== undefined) {
+      promise.catch(() => {
+        // En caso de bloqueo por el navegador, reintentar al interactuar
+        document.addEventListener('click', () => video.play(), { once: true });
+      });
     }
   }
 
@@ -223,24 +214,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentSlide = slides[currentIndex];
     const nextSlide = slides[targetIndex];
     const prevVid = currentSlide.querySelector("video");
+    const nextVid = nextSlide.querySelector("video");
 
-    // Ejecuta la fragmentación sobre la imagen/video actual antes de ocultarlo
+    // Ejecutar la animación sobre el fotograma saliente
     playTransitionEffect(targetIndex, currentSlide);
 
+    // Pausar vídeo anterior
     if (prevVid) prevVid.pause();
 
-    buttons[currentIndex]?.classList.remove("active");
+    // Actualizar Clases
+    if (buttons[currentIndex]) buttons[currentIndex].classList.remove("active");
     currentSlide.classList.remove("active");
 
     currentIndex = targetIndex;
 
     nextSlide.classList.add("active");
-    buttons[currentIndex]?.classList.add("active");
+    if (buttons[currentIndex]) buttons[currentIndex].classList.add("active");
 
-    playCurrentVideo();
+    // Reproducir nuevo vídeo
+    if (nextVid) {
+      nextVid.currentTime = 0;
+      playVideoSafely(nextVid);
+    }
+
     resetTimer();
   }
 
+  // Event Listeners
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const index = parseInt(btn.getAttribute("data-slide"));
@@ -270,6 +270,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  playCurrentVideo();
+  // Iniciar primer vídeo
+  const firstVid = slides[0].querySelector("video");
+  if (firstVid) playVideoSafely(firstVid);
+
   startTimer();
 });
