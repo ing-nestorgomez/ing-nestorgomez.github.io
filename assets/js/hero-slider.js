@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!slides.length || !heroContainer) return;
 
-  // Setup Canvas
+  // Setup Canvas para procesamiento de fragmentos de imagen
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
   canvas.style.position = "absolute";
@@ -36,23 +36,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let isAnimating = false;
 
+  // Captura el fotograma actual del video o la imagen del slide
+  function getSlideSource(slide) {
+    const video = slide.querySelector("video");
+    if (video && video.readyState >= 2) {
+      return video;
+    }
+    const img = slide.querySelector("img");
+    return img || null;
+  }
+
   // ==========================================
-  // CATÁLOGO DE EFECTOS / TRANSICIONES
+  // EFECTOS DE FRAGMENTACIÓN REAL DE IMAGEN/VIDEO
   // ==========================================
 
-  // Efecto 1: Cuadrados Explotando
-  function explosiveBlocks() {
-    const cols = 12, rows = 8;
-    const bw = canvas.width / cols, bh = canvas.height / rows;
+  // Efecto 1: El video se rompe en cuadros reales y explotan
+  function explosiveImageBlocks(sourceElement) {
+    const cols = 10, rows = 6;
+    const bw = canvas.width / cols;
+    const bh = canvas.height / rows;
     const blocks = [];
 
+    // Recortar la textura del video/imagen en trozos
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         blocks.push({
-          x: c * bw, y: r * bh,
-          vx: (Math.random() - 0.5) * 20,
-          vy: (Math.random() - 0.5) * 20,
-          size: 1
+          sx: c * (sourceElement.videoWidth || sourceElement.width || canvas.width) / cols,
+          sy: r * (sourceElement.videoHeight || sourceElement.height || canvas.height) / rows,
+          sWidth: (sourceElement.videoWidth || sourceElement.width || canvas.width) / cols,
+          sHeight: (sourceElement.videoHeight || sourceElement.height || canvas.height) / rows,
+          x: c * bw,
+          y: r * bh,
+          vx: (Math.random() - 0.5) * 25,
+          vy: (Math.random() - 0.5) * 25,
+          scale: 1,
+          rotation: (Math.random() - 0.5) * 0.5
         });
       }
     }
@@ -60,133 +78,107 @@ document.addEventListener("DOMContentLoaded", () => {
     let progress = 0;
     function render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      progress += 0.035;
+      progress += 0.025;
 
       blocks.forEach(b => {
         b.x += b.vx;
         b.y += b.vy;
-        b.size = Math.max(0, 1 - progress);
+        b.scale = Math.max(0, 1 - progress);
 
         ctx.save();
         ctx.globalAlpha = Math.max(0, 1 - progress);
-        ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
-        ctx.lineWidth = 1.5;
-        ctx.fillRect(b.x, b.y, bw * b.size, bh * b.size);
-        ctx.strokeRect(b.x, b.y, bw * b.size, bh * b.size);
+        ctx.translate(b.x + bw / 2, b.y + bh / 2);
+        ctx.rotate(b.rotation * progress);
+        
+        // Dibuja el fragmento real extraído del video
+        try {
+          ctx.drawImage(
+            sourceElement,
+            b.sx, b.sy, b.sWidth, b.sHeight,
+            - (bw * b.scale) / 2, - (bh * b.scale) / 2, bw * b.scale, bh * b.scale
+          );
+        } catch (e) {}
+
         ctx.restore();
       });
 
-      if (progress < 1) requestAnimationFrame(render);
-      else { ctx.clearRect(0, 0, canvas.width, canvas.height); isAnimating = false; }
+      if (progress < 1) {
+        requestAnimationFrame(render);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        isAnimating = false;
+      }
     }
     render();
   }
 
-  // Efecto 2: Cortina Digital / Caída por Columnas (Matrix)
-  function matrixColumns() {
-    const cols = 16;
+  // Efecto 2: El video se divide en persianas/franjas verticales que se desplazan
+  function curtainImageSlats(sourceElement) {
+    const cols = 12;
     const bw = canvas.width / cols;
-    const columns = [];
+    const slats = [];
+
+    const srcW = sourceElement.videoWidth || sourceElement.width || canvas.width;
+    const srcH = sourceElement.videoHeight || sourceElement.height || canvas.height;
 
     for (let c = 0; c < cols; c++) {
-      columns.push({
+      slats.push({
+        sx: c * (srcW / cols),
+        sy: 0,
+        sWidth: srcW / cols,
+        sHeight: srcH,
         x: c * bw,
-        height: 0,
-        speed: 15 + Math.random() * 25,
-        delay: Math.random() * 200
+        y: 0,
+        speedY: (c % 2 === 0 ? 1 : -1) * (12 + Math.random() * 8)
       });
     }
 
-    let startTime = Date.now();
-    function render() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const elapsed = Date.now() - startTime;
-      let allDone = true;
-
-      columns.forEach(col => {
-        if (elapsed > col.delay) {
-          col.height += col.speed;
-          if (col.height < canvas.height) allDone = false;
-
-          ctx.save();
-          ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
-          ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
-          ctx.lineWidth = 1;
-          ctx.fillRect(col.x, 0, bw, col.height);
-          ctx.strokeRect(col.x, 0, bw, col.height);
-          ctx.restore();
-        } else {
-          allDone = false;
-        }
-      });
-
-      if (!allDone) requestAnimationFrame(render);
-      else { ctx.clearRect(0, 0, canvas.width, canvas.height); isAnimating = false; }
-    }
-    render();
-  }
-
-  // Efecto 3: Expansión Giratoria
-  function centerRipple() {
-    const cols = 10, rows = 6;
-    const bw = canvas.width / cols, bh = canvas.height / rows;
     let progress = 0;
-
     function render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      progress += 0.03;
+      progress += 0.025;
 
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const x = c * bw + bw / 2;
-          const y = r * bh + bh / 2;
-          const size = (1 - progress) * Math.min(bw, bh);
+      slats.forEach(s => {
+        s.y += s.speedY;
 
-          ctx.save();
-          ctx.translate(x, y);
-          ctx.rotate(progress * Math.PI);
-          ctx.globalAlpha = Math.max(0, 1 - progress);
-          ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
-          ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
-          ctx.lineWidth = 2;
-          ctx.fillRect(-size / 2, -size / 2, size, size);
-          ctx.strokeRect(-size / 2, -size / 2, size, size);
-          ctx.restore();
-        }
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, 1 - progress);
+        try {
+          ctx.drawImage(
+            sourceElement,
+            s.sx, s.sy, s.sWidth, s.sHeight,
+            s.x, s.y, bw, canvas.height
+          );
+        } catch (e) {}
+        ctx.restore();
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(render);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        isAnimating = false;
       }
-
-      if (progress < 1) requestAnimationFrame(render);
-      else { ctx.clearRect(0, 0, canvas.width, canvas.height); isAnimating = false; }
     }
     render();
   }
 
-  // Selector de Animación por Diapositiva
-  function playTransitionEffect(targetIndex) {
+  // Controlador de efectos reales
+  function playTransitionEffect(targetIndex, currentSlide) {
     if (isAnimating) return;
+
+    const sourceEl = getSlideSource(currentSlide);
+    
+    // Si no se puede extraer la textura, salta la animación limpia
+    if (!sourceEl) return;
+
     isAnimating = true;
 
-    // Asignar una transición única según la diapositiva a la que vas
-    switch (targetIndex) {
-      case 0:
-        explosiveBlocks();
-        break;
-      case 1:
-        matrixColumns();
-        break;
-      case 2:
-        centerRipple();
-        break;
-      case 3:
-        explosiveBlocks();
-        break;
-      default:
-        // Aleatorio para el resto
-        const effects = [explosiveBlocks, matrixColumns, centerRipple];
-        const randomFx = effects[Math.floor(Math.random() * effects.length)];
-        randomFx();
-        break;
+    // Alternar los efectos de corte según el índice
+    if (targetIndex % 2 === 0) {
+      explosiveImageBlocks(sourceEl);
+    } else {
+      curtainImageSlats(sourceEl);
     }
   }
 
@@ -207,8 +199,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const nextSlide = slides[targetIndex];
     const prevVid = currentSlide.querySelector("video");
 
-    // Ejecuta la transición específica para la nueva diapositiva
-    playTransitionEffect(targetIndex);
+    // Ejecuta la fragmentación sobre la imagen/video actual antes de ocultarlo
+    playTransitionEffect(targetIndex, currentSlide);
 
     if (prevVid) prevVid.pause();
 
