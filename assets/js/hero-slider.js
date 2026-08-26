@@ -1,97 +1,106 @@
 document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelectorAll(".slide");
   const buttons = document.querySelectorAll(".slider-btn");
+  const canvas = document.createElement("canvas");
+  const heroContainer = document.querySelector(".hero-slider");
+  const canvasContainer = document.getElementById("canvas");
+  
   let currentIndex = 0;
   let autoSlideTimer = null;
   const slideDuration = 8000;
 
-  if (!slides.length) return;
+  if (!slides.length || !heroContainer) return;
 
-  // --- CONFIGURACIÓN DE CURTAINS.JS ---
-  let curtains = null;
-  let plane = null;
-
-  // Vertex Shader: Deformación en retícula cuadriculada
-  const vs = `
-    precision mediump float;
-    attribute vec3 aVertexPosition;
-    attribute vec2 aTextureCoord;
-
-    uniform mat4 uMVMatrix;
-    uniform mat4 uPMatrix;
-    uniform float uTransition;
-
-    varying vec2 vTextureCoord;
-
-    void main() {
-      vec3 pos = aVertexPosition;
-      
-      // Deformación geométrica cuadrilar basada en posiciones de vértices
-      float gridX = floor(aTextureCoord.x * 12.0);
-      float gridY = floor(aTextureCoord.y * 12.0);
-      float factor = sin(gridX + gridY + uTransition * 3.14159);
-      
-      pos.z += factor * uTransition * 0.4;
-
-      gl_Position = uPMatrix * uMVMatrix * vec4(pos, 1.0);
-      vTextureCoord = aTextureCoord;
-    }
-  `;
-
-  // Fragment Shader: Render de la textura del video/imagen
-  const fs = `
-    precision mediump float;
-    varying vec2 vTextureCoord;
-    uniform sampler2D uRenderTexture;
-
-    void main() {
-      vec4 color = texture2D(uRenderTexture, vTextureCoord);
-      gl_FragColor = color;
-    }
-  `;
-
-  function initCurtains() {
-    if (typeof Curtains === "undefined") return;
-
-    curtains = new Curtains({
-      container: "canvas",
-      pixelRatio: Math.min(1.5, window.devicePixelRatio),
-      watchScroll: false
-    });
-
-    curtains.onError(() => {
-      console.warn("WebGL no soportado o error en CurtainsJS");
-    });
-
-    const params = {
-      vertexShader: vs,
-      fragmentShader: fs,
-      widthSegments: 20,  // Permite que la retícula se divida en cuadros
-      heightSegments: 20,
-      uniforms: {
-        transition: { name: "uTransition", type: "1f", value: 0.0 }
-      }
-    };
-
-    const firstSlide = slides[0];
-    plane = curtains.addPlane(firstSlide, params);
-
-    if (plane) {
-      plane.onRender(() => {
-        // Reducción suave del valor de transición
-        if (plane.uniforms.transition.value > 0.001) {
-          plane.uniforms.transition.value *= 0.92;
-        } else {
-          plane.uniforms.transition.value = 0.0;
-        }
-      });
-    }
+  // Montar el Canvas nativo
+  const ctx = canvas.getContext("2d");
+  canvas.style.position = "absolute";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.pointerEvents = "none";
+  canvas.style.zIndex = "3";
+  
+  if (canvasContainer) {
+    canvasContainer.appendChild(canvas);
+  } else {
+    heroContainer.appendChild(canvas);
   }
 
-  function triggerTransition() {
-    if (plane) {
-      plane.uniforms.transition.value = 1.0; // Fuerza la distorsión cuadrangular
+  function resizeCanvas() {
+    canvas.width = heroContainer.clientWidth;
+    canvas.height = heroContainer.clientHeight;
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  // --- ANIMACIÓN DE FRAGMENTOS CUADRADOS ---
+  let isAnimating = false;
+
+  function animateSquareTransition(fromVid) {
+    if (isAnimating || !fromVid) return;
+    isAnimating = true;
+
+    const cols = 12;
+    const rows = 8;
+    const blockWidth = canvas.width / cols;
+    const blockHeight = canvas.height / rows;
+
+    // Crear matriz de fragmentos con posiciones y velocidades aleatorias
+    const blocks = [];
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        blocks.push({
+          x: c * blockWidth,
+          y: r * blockHeight,
+          vx: (Math.random() - 0.5) * 15,
+          vy: (Math.random() - 0.5) * 15,
+          size: 1,
+          opacity: 1
+        });
+      }
     }
+
+    let progress = 0;
+
+    function renderFrame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      progress += 0.03;
+
+      let activeBlocks = 0;
+
+      blocks.forEach((b) => {
+        if (b.opacity > 0) {
+          activeBlocks++;
+          b.x += b.vx;
+          b.y += b.vy;
+          b.size = Math.max(0, 1 - progress);
+          b.opacity = Math.max(0, 1 - progress);
+
+          ctx.save();
+          ctx.globalAlpha = b.opacity;
+          ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.6)";
+          ctx.lineWidth = 1.5;
+
+          // Dibujar cuadro/fragmento
+          const w = blockWidth * b.size;
+          const h = blockHeight * b.size;
+          ctx.fillRect(b.x, b.y, w, h);
+          ctx.strokeRect(b.x, b.y, w, h);
+          ctx.restore();
+        }
+      });
+
+      if (progress < 1 && activeBlocks > 0) {
+        requestAnimationFrame(renderFrame);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        isAnimating = false;
+      }
+    }
+
+    renderFrame();
   }
 
   // --- LÓGICA DEL SLIDER ---
@@ -109,8 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentSlide = slides[currentIndex];
     const nextSlide = slides[targetIndex];
-
     const prevVid = currentSlide.querySelector("video");
+
+    // Disparar efecto visual de cuadrados explotando/dispersándose
+    animateSquareTransition(prevVid);
+
     if (prevVid) prevVid.pause();
 
     buttons[currentIndex].classList.remove("active");
@@ -122,7 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons[currentIndex].classList.add("active");
 
     playCurrentVideo();
-    triggerTransition();
     resetTimer();
   }
 
@@ -155,10 +166,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Inicialización
-  setTimeout(() => {
-    initCurtains();
-    playCurrentVideo();
-    startTimer();
-  }, 100);
+  playCurrentVideo();
+  startTimer();
 });
