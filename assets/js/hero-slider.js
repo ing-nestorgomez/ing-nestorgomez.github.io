@@ -7,40 +7,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!slides.length) return;
 
-  // --- CONFIGURACIÓN DE CURTAINS.JS (FRAGMENTOS SHADER) ---
+  // --- CONFIGURACIÓN DE CURTAINS.JS ---
   let curtains = null;
   let plane = null;
 
-  // Vertex Shader: Crea la deformación por ondas / fragmentos
+  // Vertex Shader: Deformación en retícula cuadriculada
   const vs = `
     precision mediump float;
     attribute vec3 aVertexPosition;
     attribute vec2 aTextureCoord;
+
     uniform mat4 uMVMatrix;
     uniform mat4 uPMatrix;
     uniform float uTransition;
+
     varying vec2 vTextureCoord;
-    
+
     void main() {
       vec3 pos = aVertexPosition;
-      // Distorsión en bloques/cuadrados usando senos en retícula
-      float wave = sin(pos.x * 10.0 + uTransition * 6.28) * cos(pos.y * 10.0 + uTransition * 6.28);
-      pos.z += wave * uTransition * 0.5;
+      
+      // Deformación geométrica cuadrilar basada en posiciones de vértices
+      float gridX = floor(aTextureCoord.x * 12.0);
+      float gridY = floor(aTextureCoord.y * 12.0);
+      float factor = sin(gridX + gridY + uTransition * 3.14159);
+      
+      pos.z += factor * uTransition * 0.4;
+
       gl_Position = uPMatrix * uMVMatrix * vec4(pos, 1.0);
       vTextureCoord = aTextureCoord;
     }
   `;
 
-  // Fragment Shader: Muestra la textura del video
+  // Fragment Shader: Render de la textura del video/imagen
   const fs = `
     precision mediump float;
     varying vec2 vTextureCoord;
     uniform sampler2D uRenderTexture;
-    uniform float uOpacity;
 
     void main() {
       vec4 color = texture2D(uRenderTexture, vTextureCoord);
-      gl_FragColor = vec4(color.rgb, color.a * uOpacity);
+      gl_FragColor = color;
     }
   `;
 
@@ -49,15 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     curtains = new Curtains({
       container: "canvas",
-      pixelRatio: Math.min(1.5, window.devicePixelRatio)
+      pixelRatio: Math.min(1.5, window.devicePixelRatio),
+      watchScroll: false
+    });
+
+    curtains.onError(() => {
+      console.warn("WebGL no soportado o error en CurtainsJS");
     });
 
     const params = {
       vertexShader: vs,
       fragmentShader: fs,
+      widthSegments: 20,  // Permite que la retícula se divida en cuadros
+      heightSegments: 20,
       uniforms: {
-        transition: { name: "uTransition", type: "1f", value: 0 },
-        opacity: { name: "uOpacity", type: "1f", value: 1.0 }
+        transition: { name: "uTransition", type: "1f", value: 0.0 }
       }
     };
 
@@ -66,9 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (plane) {
       plane.onRender(() => {
-        if (plane.uniforms.transition.value > 0) {
-          plane.uniforms.transition.value -= 0.02;
-          if (plane.uniforms.transition.value < 0) plane.uniforms.transition.value = 0;
+        // Reducción suave del valor de transición
+        if (plane.uniforms.transition.value > 0.001) {
+          plane.uniforms.transition.value *= 0.92;
+        } else {
+          plane.uniforms.transition.value = 0.0;
         }
       });
     }
@@ -76,11 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function triggerTransition() {
     if (plane) {
-      plane.uniforms.transition.value = 1.0; // Dispara el efecto de fragmentos
+      plane.uniforms.transition.value = 1.0; // Fuerza la distorsión cuadrangular
     }
   }
 
-  // --- CONTROL DE VIDEOS Y SLIDER ---
+  // --- LÓGICA DEL SLIDER ---
   function playCurrentVideo() {
     const currentVid = slides[currentIndex].querySelector("video");
     if (currentVid) {
@@ -141,7 +155,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  initCurtains();
-  playCurrentVideo();
-  startTimer();
+  // Inicialización
+  setTimeout(() => {
+    initCurtains();
+    playCurrentVideo();
+    startTimer();
+  }, 100);
 });
