@@ -10,6 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!slides.length || !heroContainer) return;
 
+  // Pre-cargar y silenciar todos los vídeos al inicio para evitar pantallas en negro
+  slides.forEach((slide) => {
+    const vid = slide.querySelector("video");
+    if (vid) {
+      vid.muted = true;
+      vid.playsInline = true;
+      vid.preload = "auto";
+      vid.load();
+    }
+  });
+
   // Setup Canvas para procesamiento de fragmentos de imagen
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
@@ -57,14 +68,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const bh = canvas.height / rows;
     const blocks = [];
 
+    const srcW = sourceElement.videoWidth || sourceElement.width || canvas.width;
+    const srcH = sourceElement.videoHeight || sourceElement.height || canvas.height;
+
     // Recortar la textura del video/imagen en trozos
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         blocks.push({
-          sx: c * (sourceElement.videoWidth || sourceElement.width || canvas.width) / cols,
-          sy: r * (sourceElement.videoHeight || sourceElement.height || canvas.height) / rows,
-          sWidth: (sourceElement.videoWidth || sourceElement.width || canvas.width) / cols,
-          sHeight: (sourceElement.videoHeight || sourceElement.height || canvas.height) / rows,
+          sx: c * (srcW / cols),
+          sy: r * (srcH / rows),
+          sWidth: srcW / cols,
+          sHeight: srcH / rows,
           x: c * bw,
           y: r * bh,
           vx: (Math.random() - 0.5) * 25,
@@ -90,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.translate(b.x + bw / 2, b.y + bh / 2);
         ctx.rotate(b.rotation * progress);
         
-        // Dibuja el fragmento real extraído del video
         try {
           ctx.drawImage(
             sourceElement,
@@ -169,12 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sourceEl = getSlideSource(currentSlide);
     
-    // Si no se puede extraer la textura, salta la animación limpia
+    // Si no se puede extraer la textura, cancela la animación del canvas para no bloquear
     if (!sourceEl) return;
 
     isAnimating = true;
 
-    // Alternar los efectos de corte según el índice
     if (targetIndex % 2 === 0) {
       explosiveImageBlocks(sourceEl);
     } else {
@@ -182,29 +194,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- LÓGICA DEL SLIDER ---
+  // Reproducción controlada y reinicio del vídeo activo
   function playCurrentVideo() {
-  const currentSlide = slides[currentIndex];
-  if (!currentSlide) return;
+    const currentSlide = slides[currentIndex];
+    if (!currentSlide) return;
 
-  const currentVid = currentSlide.querySelector("video");
-  if (currentVid) {
-    currentVid.muted = true;
-    currentVid.currentTime = 0; // Reinicia el video desde el inicio
-    
-    // Forzar la carga si el navegador lo mantuvo en pausa
-    if (currentVid.readyState < 2) {
-      currentVid.load();
-    }
+    const currentVid = currentSlide.querySelector("video");
+    if (currentVid) {
+      currentVid.muted = true;
+      currentVid.currentTime = 0;
 
-    const playPromise = currentVid.play();
-    if (playPromise !== undefined) {
-      playPromise.catch((error) => {
-        console.warn("Autoplay bloqueado o interrumpido:", error);
-      });
+      if (currentVid.readyState < 2) {
+        currentVid.load();
+      }
+
+      const playPromise = currentVid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("Autoplay diferido por el navegador:", error);
+        });
+      }
     }
   }
-}
 
   function goToSlide(targetIndex) {
     if (targetIndex === currentIndex) return;
@@ -218,13 +229,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (prevVid) prevVid.pause();
 
-    buttons[currentIndex].classList.remove("active");
+    buttons[currentIndex]?.classList.remove("active");
     currentSlide.classList.remove("active");
 
     currentIndex = targetIndex;
 
     nextSlide.classList.add("active");
-    buttons[currentIndex].classList.add("active");
+    buttons[currentIndex]?.classList.add("active");
 
     playCurrentVideo();
     resetTimer();
@@ -233,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const index = parseInt(btn.getAttribute("data-slide"));
-      goToSlide(index);
+      if (!isNaN(index)) goToSlide(index);
     });
   });
 
