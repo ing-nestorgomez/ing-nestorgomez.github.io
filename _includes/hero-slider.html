@@ -24,7 +24,7 @@
   <!-- Contenedor de Diapositivas -->
   <div class="slides-container">
     
-    <!-- Slide 1 -->
+    <!-- Slide 1 (ÚNICA CON CLASE .active DE INICIO) -->
     <article class="slide active">
       <video class="slide-video" autoplay loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-1.webp' | relative_url }}">
         <source src="{{ '/assets/videos/hero-1.webm' | relative_url }}" type="video/webm">
@@ -32,87 +32,86 @@
       </video>
       
       <div class="slide-content">
-      <!-- Contenedor con 3 imágenes superpuestas -->
-      <div class="slide-images">
-        <img src="{{ '/assets/images/feature-1a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
-        <img src="{{ '/assets/images/feature-1b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
-        <img src="{{ '/assets/images/feature-1c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        <div class="slide-images">
+          <img src="{{ '/assets/images/feature-1a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
+          <img src="{{ '/assets/images/feature-1b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
+          <img src="{{ '/assets/images/feature-1c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        </div>
+        <h2>Innovación Digital</h2>
+        <p>Soluciones modernas orientadas al rendimiento y la experiencia visual.</p>
       </div>
-      <h2>Innovación Digital</h2>
-      <p>Soluciones modernas orientadas al rendimiento y la experiencia visual.</p>
-    </div>
+    </article>
 
     <!-- Slide 2 -->
-    <article class="slide active">
-      <video class="slide-video" autoplay loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-1.webp' | relative_url }}">
-        <source src="{{ '/assets/videos/hero-1.webm' | relative_url }}" type="video/webm">
-        <source src="{{ '/assets/videos/hero-1.mp4' | relative_url }}" type="video/mp4">
+    <article class="slide">
+      <video class="slide-video" loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-2.webp' | relative_url }}">
+        <source src="{{ '/assets/videos/hero-2.webm' | relative_url }}" type="video/webm">
+        <source src="{{ '/assets/videos/hero-2.mp4' | relative_url }}" type="video/mp4">
       </video>
       
       <div class="slide-content">
-      <!-- Contenedor con 3 imágenes superpuestas -->
-      <div class="slide-images">
-        <img src="{{ '/assets/images/feature-1a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
-        <img src="{{ '/assets/images/feature-1b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
-        <img src="{{ '/assets/images/feature-1c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        <div class="slide-images">
+          <img src="{{ '/assets/images/feature-2a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
+          <img src="{{ '/assets/images/feature-2b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
+          <img src="{{ '/assets/images/feature-2c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        </div>
+        <h2>Arquitectura Escalable</h2>
+        <p>Estructuras limpias diseñadas para alto rendimiento y crecimiento.</p>
       </div>
-      <h2>Innovación Digital</h2>
-      <p>Soluciones modernas orientadas al rendimiento y la experiencia visual.</p>
-    </div>
+    </article>
 
     <!-- Slide 3 -->
-    <article class="slide active">
-      <video class="slide-video" autoplay loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-1.webp' | relative_url }}">
-        <source src="{{ '/assets/videos/hero-1.webm' | relative_url }}" type="video/webm">
-        <source src="{{ '/assets/videos/hero-1.mp4' | relative_url }}" type="video/mp4">
+    <article class="slide">
+      <video class="slide-video" loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-3.webp' | relative_url }}">
+        <source src="{{ '/assets/videos/hero-3.webm' | relative_url }}" type="video/webm">
+        <source src="{{ '/assets/videos/hero-3.mp4' | relative_url }}" type="video/mp4">
       </video>
       
       <div class="slide-content">
-      <!-- Contenedor con 3 imágenes superpuestas -->
-      <div class="slide-images">
-        <img src="{{ '/assets/images/feature-1a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
-        <img src="{{ '/assets/images/feature-1b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
-        <img src="{{ '/assets/images/feature-1c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        <div class="slide-images">
+          <img src="{{ '/assets/images/feature-3a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
+          <img src="{{ '/assets/images/feature-3b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
+          <img src="{{ '/assets/images/feature-3c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        </div>
+        <h2>Diseño Interactivo</h2>
+        <p>Interfaces dinámicas que conectan con los usuarios.</p>
       </div>
-      <h2>Innovación Digital</h2>
-      <p>Soluciones modernas orientadas al rendimiento y la experiencia visual.</p>
-    </div>
+    </article>
 
     <!-- Slide 4 -->
-    <article class="slide active">
-      <video class="slide-video" autoplay loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-1.webp' | relative_url }}">
-        <source src="{{ '/assets/videos/hero-1.webm' | relative_url }}" type="video/webm">
-        <source src="{{ '/assets/videos/hero-1.mp4' | relative_url }}" type="video/mp4">
+    <article class="slide">
+      <video class="slide-video" loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-4.webp' | relative_url }}">
+        <source src="{{ '/assets/videos/hero-4.webm' | relative_url }}" type="video/webm">
+        <source src="{{ '/assets/videos/hero-4.mp4' | relative_url }}" type="video/mp4">
       </video>
       
       <div class="slide-content">
-      <!-- Contenedor con 3 imágenes superpuestas -->
-      <div class="slide-images">
-        <img src="{{ '/assets/images/feature-1a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
-        <img src="{{ '/assets/images/feature-1b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
-        <img src="{{ '/assets/images/feature-1c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        <div class="slide-images">
+          <img src="{{ '/assets/images/feature-4a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
+          <img src="{{ '/assets/images/feature-4b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
+          <img src="{{ '/assets/images/feature-4c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        </div>
+        <h2>Código Optimizado</h2>
+        <p>Desarrollo robusto con las mejores prácticas del sector.</p>
       </div>
-      <h2>Innovación Digital</h2>
-      <p>Soluciones modernas orientadas al rendimiento y la experiencia visual.</p>
-    </div>
+    </article>
       
     <!-- Slide 5 -->
-    <article class="slide active">
-      <video class="slide-video" autoplay loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-1.webp' | relative_url }}">
-        <source src="{{ '/assets/videos/hero-1.webm' | relative_url }}" type="video/webm">
-        <source src="{{ '/assets/videos/hero-1.mp4' | relative_url }}" type="video/mp4">
+    <article class="slide">
+      <video class="slide-video" loop muted playsinline preload="auto" crossorigin="anonymous" poster="{{ '/assets/images/hero-5.webp' | relative_url }}">
+        <source src="{{ '/assets/videos/hero-5.webm' | relative_url }}" type="video/webm">
+        <source src="{{ '/assets/videos/hero-5.mp4' | relative_url }}" type="video/mp4">
       </video>
       
       <div class="slide-content">
-      <!-- Contenedor con 3 imágenes superpuestas -->
-      <div class="slide-images">
-        <img src="{{ '/assets/images/feature-1a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
-        <img src="{{ '/assets/images/feature-1b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
-        <img src="{{ '/assets/images/feature-1c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        <div class="slide-images">
+          <img src="{{ '/assets/images/feature-5a.webp' | relative_url }}" alt="Característica 1" class="slide-img img-30">
+          <img src="{{ '/assets/images/feature-5b.webp' | relative_url }}" alt="Característica 2" class="slide-img img-40">
+          <img src="{{ '/assets/images/feature-5c.webp' | relative_url }}" alt="Característica 3" class="slide-img img-20">
+        </div>
+        <h2>Despliegue Rápido</h2>
+        <p>Integración continua y entregas eficientes.</p>
       </div>
-      <h2>Innovación Digital</h2>
-      <p>Soluciones modernas orientadas al rendimiento y la experiencia visual.</p>
-    </div>
     </article>
 
   </div>
