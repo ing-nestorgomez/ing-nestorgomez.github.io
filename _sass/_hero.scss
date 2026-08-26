@@ -7,16 +7,15 @@
   overflow: hidden;
   background-color: #000;
 
-  /* Canvas 3D de Three.js elevado por encima de las diapositivas */
   #canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3; /* <--- Cambiado de 1 a 3 */
-    pointer-events: none;
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3; /* Canvas por encima de los vídeos */
+  pointer-events: none;
+}
 }
 
 /* Panel Flotante Izquierdo */
