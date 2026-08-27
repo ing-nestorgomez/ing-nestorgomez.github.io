@@ -114,7 +114,7 @@ $ease: ease-in-out;
 
   .nav__link {
     text-decoration: none;
-    color: #fff;
+    color: #4a5568;
     font-weight: 600;
     transition: color 0.2s;
 
@@ -171,6 +171,9 @@ $ease: ease-in-out;
       flex-direction: column;
       align-items: center;
       gap: 15px;
+    }
+    .nav__link {
+      color: #fff;
     }
   }
 
