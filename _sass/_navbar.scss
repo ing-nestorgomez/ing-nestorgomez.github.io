@@ -38,7 +38,7 @@ $ease: ease-in-out;
 }
 
 @media (max-width: 768px) {
-  .logo-mobile { display: block !important; }
+ // .logo-mobile { display: block !important; }
 }
 
 .nav-wrapper {
@@ -148,7 +148,7 @@ $ease: ease-in-out;
     }
     
     .top-bar-left a .fa-envelope {
-        /* font-size: 18px;  Tamaño del icono en móvil */
+        font-size: 18px; /* Tamaño del icono en móvil */
         margin-right: 0;
     }
 
