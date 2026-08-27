@@ -114,7 +114,7 @@ $ease: ease-in-out;
 
   .nav__link {
     text-decoration: none;
-    color: #4a5568;
+    color: #fff;
     font-weight: 600;
     transition: color 0.2s;
 
@@ -141,12 +141,23 @@ $ease: ease-in-out;
     perspective: 1000px; // Permite la animación 3D
   }
 
+  .top-bar-left a {
+        /* Ocultamos el texto manteniendo el icono */
+        font-size: 0; /* Oculta el texto */
+        gap: 0;
+    }
+    
+    .top-bar-left a .fa-envelope {
+        /* font-size: 18px;  Tamaño del icono en móvil */
+        margin-right: 0;
+    }
+
   .main-nav {
     position: absolute;
     top: 70px;
     left: 0;
     width: 100%;
-    background-color: #ffffff;
+    background-color: #064690;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px 0;
     
