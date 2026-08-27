@@ -188,6 +188,14 @@
 }
 
 @media (max-width: 768px) {
+  .hero-slider { 
+    height: 340px;
+  }
+
+  .slide { 
+    height: 340px;
+  }
+  
   .hero-sidebar {
     visibility: hidden;
     left: 10px;
