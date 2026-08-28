@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "10 Técnicas Esenciales de Esquí para Principiantes"
-date: 2026-08-20 10:00:00 -0400
+date: 2026-08-01 10:00:00 -0400
 categories: [tecnica, principiantes]
 tags: [esqui, tutorial, nieve]
 image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=1200&q=80"
