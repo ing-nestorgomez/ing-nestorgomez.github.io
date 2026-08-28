@@ -1,0 +1,73 @@
+// Variables
+$color-dark-navy: #0b2545;
+$radius-main: 16px;
+
+/* =========================================================
+   BARRA HORIZONTAL FLOTANTE
+   ========================================================= */
+.floating-features {
+  position: relative;
+  z-index: 10;
+  margin-top: -60px; // Eleva el bloque sobre la sección Hero
+
+  &__wrapper {
+    background-color: $color-dark-navy;
+    border-radius: $radius-main;
+    padding: 30px 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  &__title {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+  }
+
+  &__desc {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.3;
+  }
+}
+
+/* Responsivo */
+@media (max-width: 992px) {
+  .floating-features__wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .floating-features {
+    margin-top: -30px;
+
+    &__wrapper {
+      grid-template-columns: 1fr;
+      padding: 20px;
+    }
+  }
+}
