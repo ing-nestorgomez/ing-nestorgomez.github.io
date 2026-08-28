@@ -37,9 +37,14 @@ $ease: ease-in-out;
   body.dark-mode .logo-dark-desktop { display: block; }
 }
 
+/* =========================================================
+   CAMBIO DE LOGO PARA MÓVILES (DESACTIVADO TEMPORALMENTE)
+   ========================================================= */
+/* 
 @media (max-width: 768px) {
   .logo-mobile { display: block !important; }
 }
+*/
 
 .nav-wrapper {
   display: flex;
@@ -142,15 +147,15 @@ $ease: ease-in-out;
   }
 
   .top-bar-left a {
-        /* Ocultamos el texto manteniendo el icono */
-        font-size: 0; /* Oculta el texto */
-        gap: 0;
-    }
+    /* Ocultamos el texto manteniendo el icono */
+    font-size: 0; /* Oculta el texto */
+    gap: 0;
+  }
     
-    .top-bar-left a .fa-envelope {
-        font-size: 18px; /* Tamaño del icono en móvil */
-        margin-right: 0;
-    }
+  .top-bar-left a .fa-envelope {
+    font-size: 18px; /* Tamaño del icono en móvil */
+    margin-right: 0;
+  }
 
   .main-nav {
     position: absolute;
