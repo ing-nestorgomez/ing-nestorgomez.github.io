@@ -54,116 +54,47 @@ title: Inicio
   </div>
 </section>
 
-<!-- SECCIÓN DESTACADA / ABOUT (PÚBLICO O POST DESTACADO) -->
-<section class="about-section section-padding">
-  <div class="container">
-    <div class="about-grid">
-      
-      <div class="about-grid__image-col">
-        <div class="about-card">
-          <img src="assets/images/about-img.jpg" alt="Featured Post" class="about-card__img">
-          <div class="about-card__badge">
-            <span class="about-card__badge-number">15+</span>
-            <span class="about-card__badge-text">Years Experience</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-grid__content-col">
-        <span class="section-subtitle">ABOUT US</span>
-        <h2 class="section-title">Your Journey to Better Skiing Starts Here</h2>
-        <p class="section-desc">
-          At Antix, we believe skiing is more than a sport - it's a way of life. Our expert coaches provide personalized guidance to help you build confidence, improve technique, and enjoy every moment on the slopes.
-        </p>
-
-        <div class="about-stats">
-          <div class="about-stat">
-            <h3 class="about-stat__number">200+</h3>
-            <p class="about-stat__label">Happy Clients</p>
-          </div>
-          <div class="about-stat">
-            <h3 class="about-stat__number">15+</h3>
-            <p class="about-stat__label">Years Experience</p>
-          </div>
-          <div class="about-stat">
-            <h3 class="about-stat__number">20+</h3>
-            <p class="about-stat__label">Expert Coaches</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- SECCIÓN BLOG / PROGRAMAS (GRID DE 3 CARDS) -->
+<!-- SECCIÓN BLOG / POSTS DESTACADOS (JEKYLL) -->
 <section class="programs-section section-padding">
   <div class="container">
     
     <div class="section-header text-center">
-      <span class="section-subtitle">OUR PROGRAMS</span>
-      <h2 class="section-title">Choose Your Ski Coaching Program</h2>
+      <span class="section-subtitle">NUESTRO BLOG</span>
+      <h2 class="section-title">Últimas Publicaciones</h2>
     </div>
 
     <div class="programs-grid">
-      
-      <!-- Card 1 -->
-      <article class="program-card">
-        <div class="program-card__image-wrapper">
-          <img src="assets/images/card-1.jpg" alt="Beginner Program" class="program-card__img">
-          <div class="program-card__icon-badge">
-            <i class="fa-solid fa-person-skiing"></i>
+      {% for post in site.posts limit:3 %}
+        <article class="program-card">
+          <div class="program-card__image-wrapper">
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="program-card__img">
+            {% if post.category %}
+              <div class="program-card__icon-badge">
+                <i class="fa-solid fa-newspaper"></i>
+              </div>
+            {% endif %}
           </div>
-        </div>
-        <div class="program-card__body">
-          <h3 class="program-card__title">Beginner Program</h3>
-          <p class="program-card__desc">Perfect for those new to skiing. Build confidence and learn fundamentals.</p>
-          <a href="/blog/beginner-program" class="program-card__link">
-            Learn More <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-      <!-- Card 2 -->
-      <article class="program-card">
-        <div class="program-card__image-wrapper">
-          <img src="assets/images/card-2.jpg" alt="Intermediate Program" class="program-card__img">
-          <div class="program-card__icon-badge">
-            <i class="fa-solid fa-person-skiing"></i>
+          <div class="program-card__body">
+            <h3 class="program-card__title">{{ post.title }}</h3>
+            <p class="program-card__desc">
+              {% if post.excerpt_custom %}
+                {{ post.excerpt_custom }}
+              {% else %}
+                {{ post.excerpt | strip_html | truncate: 100 }}
+              {% endif %}
+            </p>
+            <a href="{{ post.url | relative_url }}" class="program-card__link">
+              Leer más <i class="fa-solid fa-arrow-right"></i>
+            </a>
           </div>
-        </div>
-        <div class="program-card__body">
-          <h3 class="program-card__title">Intermediate Program</h3>
-          <p class="program-card__desc">Improve your technique and tackle more challenging slopes with ease.</p>
-          <a href="/blog/intermediate-program" class="program-card__link">
-            Learn More <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-      <!-- Card 3 -->
-      <article class="program-card">
-        <div class="program-card__image-wrapper">
-          <img src="assets/images/card-3.jpg" alt="Advanced Program" class="program-card__img">
-          <div class="program-card__icon-badge">
-            <i class="fa-solid fa-person-skiing"></i>
-          </div>
-        </div>
-        <div class="program-card__body">
-          <h3 class="program-card__title">Advanced Program</h3>
-          <p class="program-card__desc">Take your skills to the next level with advanced techniques and training.</p>
-          <a href="/blog/advanced-program" class="program-card__link">
-            Learn More <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
+        </article>
+      {% endfor %}
     </div>
 
-    <!-- BOTÓN INFERIOR HACIA PÁGINA INDIVIDUAL -->
+    <!-- BOTÓN INFERIOR HACIA LA PÁGINA DEL BLOG -->
     <div class="programs-footer text-center">
-      <a href="/blog" class="btn btn--primary">
-        View All Programs <i class="fa-solid fa-arrow-right"></i>
+      <a href="{{ '/pages/blog.html' | relative_url }}" class="btn btn--primary">
+        Ver Todos los Artículos <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
 
