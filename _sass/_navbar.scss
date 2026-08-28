@@ -28,20 +28,23 @@ $ease: ease-in-out;
   .site-logo {
     height: 42px;
     width: auto;
-    display: none;
+    display: none; // Se ocultan todos por defecto
   }
 }
 
-@media (min-width: 769px) {
-  body:not(.dark-mode) .logo-light-desktop { display: block; }
-  body.dark-mode .logo-dark-desktop { display: block; }
-}
+/* =========================================================
+   LOGOS GLOBALES (Visibles en Escritorio y Móvil)
+   ========================================================= */
+body:not(.dark-mode) .logo-light-desktop { display: block; }
+body.dark-mode .logo-dark-desktop { display: block; }
 
 /* =========================================================
    CAMBIO DE LOGO PARA MÓVILES (DESACTIVADO TEMPORALMENTE)
    ========================================================= */
 /* 
 @media (max-width: 768px) {
+  body:not(.dark-mode) .logo-light-desktop { display: none; }
+  body.dark-mode .logo-dark-desktop { display: none; }
   .logo-mobile { display: block !important; }
 }
 */
