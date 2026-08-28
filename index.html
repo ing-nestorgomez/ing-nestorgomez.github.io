@@ -41,7 +41,46 @@ title: Inicio
   </div>
 </section>
 
-<!-- SECCIÓN BLOG / POSTS DESTACADOS (JEKYLL) -->
+<!-- 2. SECCIÓN DEL POST DESTACADO -->
+{% assign featured = site.posts[0] %}
+{% if featured %}
+<section class="featured-post-section section-padding">
+  <div class="container">
+    <div class="featured-post-grid">
+      
+      <!-- Columna Izquierda: Imagen y Insignia -->
+      <div class="featured-post__image-col">
+        <div class="featured-post__card">
+          <img src="{{ featured.image | relative_url }}" alt="{{ featured.title }}" class="featured-post__img">
+          <div class="featured-post__badge">
+            <span class="featured-post__badge-num">★</span>
+            <span class="featured-post__badge-text">Destacado</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Información del Post -->
+      <div class="featured-post__content-col">
+        <span class="section-subtitle">ARTÍCULO DESTACADO</span>
+        <h2 class="featured-post__title">{{ featured.title }}</h2>
+        <p class="featured-post__desc">
+          {% if featured.excerpt_custom %}
+            {{ featured.excerpt_custom }}
+          {% else %}
+            {{ featured.excerpt | strip_html | truncate: 180 }}
+          {% endif %}
+        </p>
+        <a href="{{ featured.url | relative_url }}" class="btn btn--primary">
+          Leer Artículo Completo <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- 3. GRID DE PUBLICACIONES RESTANTES (3 POSTS) -->
 <section class="programs-section section-padding">
   <div class="container">
     
@@ -51,15 +90,13 @@ title: Inicio
     </div>
 
     <div class="programs-grid">
-      {% for post in site.posts limit:3 %}
+      {% for post in site.posts limit:3 offset:1 %}
         <article class="program-card">
           <div class="program-card__image-wrapper">
             <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="program-card__img">
-            {% if post.category %}
-              <div class="program-card__icon-badge">
-                <i class="fa-solid fa-newspaper"></i>
-              </div>
-            {% endif %}
+            <div class="program-card__icon-badge">
+              <i class="fa-solid fa-newspaper"></i>
+            </div>
           </div>
           <div class="program-card__body">
             <h3 class="program-card__title">{{ post.title }}</h3>
@@ -78,7 +115,6 @@ title: Inicio
       {% endfor %}
     </div>
 
-    <!-- BOTÓN INFERIOR HACIA LA PÁGINA DEL BLOG -->
     <div class="programs-footer text-center">
       <a href="{{ '/pages/blog.html' | relative_url }}" class="btn btn--primary">
         Ver Todos los Artículos <i class="fa-solid fa-arrow-right"></i>
