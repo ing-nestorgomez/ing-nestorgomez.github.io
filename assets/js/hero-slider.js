@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let autoSlideTimer = null;
   const slideDuration = 8000;
   let isAnimating = false;
+  let activeAnimationId = null; // Control de la animación activa para evitar fugas de memoria
 
   if (!slides.length || !heroContainer) return;
 
@@ -42,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
       vid.muted = true;
       vid.playsInline = true;
       vid.preload = "auto";
-      // Cargar activamente sin reproducir
       vid.load();
     }
   });
@@ -60,12 +60,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return null;
   }
 
-  // --- EFECTOS DE CANVA ---
+  // Liberar recursos de animación previa
+  function stopActiveAnimation() {
+    if (activeAnimationId) {
+      cancelAnimationFrame(activeAnimationId);
+      activeAnimationId = null;
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  // --- EFECTOS DE CANVAS OPTIMIZADOS ---
   function explosiveImageBlocks(sourceElement) {
+    stopActiveAnimation();
+
     const cols = 10, rows = 6;
     const bw = canvas.width / cols;
     const bh = canvas.height / rows;
-    const blocks = [];
+    let blocks = [];
 
     const srcW = sourceElement.videoWidth || sourceElement.width || canvas.width;
     const srcH = sourceElement.videoHeight || sourceElement.height || canvas.height;
@@ -92,41 +103,47 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       progress += 0.03;
 
-      blocks.forEach(b => {
-        b.x += b.vx;
-        b.y += b.vy;
-        b.scale = Math.max(0, 1 - progress);
+      if (blocks) {
+        blocks.forEach(b => {
+          b.x += b.vx;
+          b.y += b.vy;
+          b.scale = Math.max(0, 1 - progress);
 
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, 1 - progress);
-        ctx.translate(b.x + bw / 2, b.y + bh / 2);
-        ctx.rotate(b.rotation * progress);
-        
-        try {
-          ctx.drawImage(
-            sourceElement,
-            b.sx, b.sy, b.sWidth, b.sHeight,
-            - (bw * b.scale) / 2, - (bh * b.scale) / 2, bw * b.scale, bh * b.scale
-          );
-        } catch (e) {}
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, 1 - progress);
+          ctx.translate(b.x + bw / 2, b.y + bh / 2);
+          ctx.rotate(b.rotation * progress);
+          
+          try {
+            ctx.drawImage(
+              sourceElement,
+              b.sx, b.sy, b.sWidth, b.sHeight,
+              - (bw * b.scale) / 2, - (bh * b.scale) / 2, bw * b.scale, bh * b.scale
+            );
+          } catch (e) {}
 
-        ctx.restore();
-      });
+          ctx.restore();
+        });
+      }
 
       if (progress < 1) {
-        requestAnimationFrame(render);
+        activeAnimationId = requestAnimationFrame(render);
       } else {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        blocks = null; // Liberación explícita de memoria
         isAnimating = false;
+        activeAnimationId = null;
       }
     }
     render();
   }
 
   function curtainImageSlats(sourceElement) {
+    stopActiveAnimation();
+
     const cols = 12;
     const bw = canvas.width / cols;
-    const slats = [];
+    let slats = [];
 
     const srcW = sourceElement.videoWidth || sourceElement.width || canvas.width;
     const srcH = sourceElement.videoHeight || sourceElement.height || canvas.height;
@@ -148,36 +165,41 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       progress += 0.03;
 
-      slats.forEach(s => {
-        s.y += s.speedY;
+      if (slats) {
+        slats.forEach(s => {
+          s.y += s.speedY;
 
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, 1 - progress);
-        try {
-          ctx.drawImage(
-            sourceElement,
-            s.sx, s.sy, s.sWidth, s.sHeight,
-            s.x, s.y, bw, canvas.height
-          );
-        } catch (e) {}
-        ctx.restore();
-      });
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, 1 - progress);
+          try {
+            ctx.drawImage(
+              sourceElement,
+              s.sx, s.sy, s.sWidth, s.sHeight,
+              s.x, s.y, bw, canvas.height
+            );
+          } catch (e) {}
+          ctx.restore();
+        });
+      }
 
       if (progress < 1) {
-        requestAnimationFrame(render);
+        activeAnimationId = requestAnimationFrame(render);
       } else {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        slats = null; // Liberación explícita de memoria
         isAnimating = false;
+        activeAnimationId = null;
       }
     }
     render();
   }
 
   function playTransitionEffect(targetIndex, currentSlide) {
-    if (isAnimating) return;
-
     const sourceEl = getSlideSource(currentSlide);
-    if (!sourceEl) return; // Si el vídeo previo no está listo, se salta la animación canvas
+    if (!sourceEl) {
+      isAnimating = false;
+      return;
+    }
 
     isAnimating = true;
 
@@ -194,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     video.muted = true;
     
-    // Si el vídeo no ha cargado lo suficiente, forzar carga
     if (video.readyState < 2) {
       video.load();
     }
@@ -202,27 +223,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const promise = video.play();
     if (promise !== undefined) {
       promise.catch(() => {
-        // En caso de bloqueo por el navegador, reintentar al interactuar
         document.addEventListener('click', () => video.play(), { once: true });
       });
     }
   }
 
   function goToSlide(targetIndex) {
-    if (targetIndex === currentIndex) return;
+    if (targetIndex === currentIndex && isAnimating) return;
 
     const currentSlide = slides[currentIndex];
     const nextSlide = slides[targetIndex];
     const prevVid = currentSlide.querySelector("video");
     const nextVid = nextSlide.querySelector("video");
 
-    // Ejecutar la animación sobre el fotograma saliente
+    // Transición visual
     playTransitionEffect(targetIndex, currentSlide);
 
-    // Pausar vídeo anterior
     if (prevVid) prevVid.pause();
 
-    // Actualizar Clases
     if (buttons[currentIndex]) buttons[currentIndex].classList.remove("active");
     currentSlide.classList.remove("active");
 
@@ -231,7 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
     nextSlide.classList.add("active");
     if (buttons[currentIndex]) buttons[currentIndex].classList.add("active");
 
-    // Reproducir nuevo vídeo
     if (nextVid) {
       nextVid.currentTime = 0;
       playVideoSafely(nextVid);
