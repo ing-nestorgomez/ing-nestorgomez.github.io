@@ -2,52 +2,144 @@
 layout: blog-layout
 title: Blog
 permalink: /pages/blog.html
-pagination: 
-  enabled: true
 ---
 
-<!-- Rejilla de Posts Paginados -->
-<div class="programs-grid">
-  {% for post in paginator.posts %}
-    <article class="program-card">
-      <div class="program-card__image-wrapper">
-        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="program-card__img">
-        <div class="program-card__icon-badge">
-          <i class="fa-solid fa-newspaper"></i>
+<div class="container" style="padding-top: 10px; padding-bottom: 60px;">
+
+  <!-- BARRA DE HERRAMIENTAS: BÚSQUEDA Y ORDEN -->
+  <div class="blog-tools">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar por título o contenido..." onkeyup="filterPosts()">
+    </div>
+    <div class="sort-box">
+      <label for="sortOrder">Ordenar:</label>
+      <select id="sortOrder" onchange="sortPosts()">
+        <option value="desc">Más recientes primero</option>
+        <option value="asc">Más antiguos primero</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- REJILLA DE ARTÍCULOS -->
+  <div id="postsGrid" class="programs-grid">
+    {% for post in site.posts %}
+      <article class="program-card post-item" 
+               data-title="{{ post.title | downcase }}" 
+               data-excerpt="{{ post.excerpt | strip_html | downcase }}"
+               data-date="{{ post.date | date: '%Y%m%d%H%M%S' }}">
+        <div class="program-card__image-wrapper">
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="program-card__img">
+          <div class="program-card__icon-badge">
+            <i class="fa-solid fa-newspaper"></i>
+          </div>
         </div>
-      </div>
-      <div class="program-card__body">
-        <h3 class="program-card__title">{{ post.title }}</h3>
-        <p class="program-card__desc">
-          {% if post.excerpt_custom %}
-            {{ post.excerpt_custom }}
-          {% else %}
-            {{ post.excerpt | strip_html | truncate: 100 }}
-          {% endif %}
-        </p>
-        <a href="{{ post.url | relative_url }}" class="program-card__link">
-          Leer más <i class="fa-solid fa-arrow-right"></i>
-        </a>
-      </div>
-    </article>
-  {% endfor %}
+        <div class="program-card__body">
+          <h3 class="program-card__title">{{ post.title }}</h3>
+          <p class="program-card__desc">
+            {% if post.excerpt_custom %}
+              {{ post.excerpt_custom }}
+            {% else %}
+              {{ post.excerpt | strip_html | truncate: 100 }}
+            {% endif %}
+          </p>
+          <a href="{{ post.url | relative_url }}" class="program-card__link">
+            Leer más <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+  <p id="noResults" style="display: none; text-align: center; color: #64748b; margin: 40px 0;">
+    No se encontraron publicaciones que coincidan con tu búsqueda.
+  </p>
+
+  <!-- CONTROLES DE PAGINACIÓN JS -->
+  <div class="pagination-container">
+    <button id="prevBtn" onclick="changePage(-1)" class="btn-pagination">&laquo; Anteriores</button>
+    <span id="pageIndicator" style="color: #64748b; font-weight: 600;"></span>
+    <button id="nextBtn" onclick="changePage(1)" class="btn-pagination">Siguientes &raquo;</button>
+  </div>
+
 </div>
 
-<!-- Controles de Paginación -->
-{% if paginator.total_pages > 1 %}
-<div class="pagination">
-  {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__btn">
-      <i class="fa-solid fa-arrow-left"></i> Anterior
-    </a>
-  {% endif %}
+<!-- LÓGICA DE INTERACTIVIDAD EN JAVASCRIPT -->
+<script>
+  const POSTS_PER_PAGE = 15; // Límite solicitado de 15 artículos por página
+  let currentPage = 1;
+  let visiblePosts = [];
 
-  <span class="pagination__info">Página {{ paginator.page }} de {{ paginator.total_pages }}</span>
+  const grid = document.getElementById('postsGrid');
+  const allPosts = Array.from(document.querySelectorAll('.post-item'));
 
-  {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__btn">
-      Siguiente <i class="fa-solid fa-arrow-right"></i>
-    </a>
-  {% endif %}
-</div>
-{% endif %}
+  function updatePagination() {
+    visiblePosts = allPosts.filter(post => post.style.display !== 'none' && !post.dataset.filtered);
+    
+    const totalPages = Math.ceil(visiblePosts.length / POSTS_PER_PAGE) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    // Mostrar sólo el rango correspondiente a la página actual
+    visiblePosts.forEach((post, index) => {
+      const start = (currentPage - 1) * POSTS_PER_PAGE;
+      const end = start + POSTS_PER_PAGE;
+      if (index >= start && index < end) {
+        post.style.display = 'flex';
+      } else {
+        post.style.display = 'none';
+      }
+    });
+
+    // Actualizar texto del indicador y estado de botones
+    document.getElementById('pageIndicator').innerText = `Página ${currentPage} de ${totalPages}`;
+    document.getElementById('prevBtn').disabled = (currentPage === 1);
+    document.getElementById('nextBtn').disabled = (currentPage === totalPages);
+
+    // Muestra u oculta la alerta si no hay coincidencias
+    document.getElementById('noResults').style.display = visiblePosts.length === 0 ? 'block' : 'none';
+  }
+
+  function filterPosts() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    
+    allPosts.forEach(post => {
+      const title = post.dataset.title;
+      const excerpt = post.dataset.excerpt;
+      
+      if (title.includes(query) || excerpt.includes(query)) {
+        delete post.dataset.filtered;
+      } else {
+        post.dataset.filtered = "true";
+        post.style.display = 'none';
+      }
+    });
+
+    currentPage = 1;
+    updatePagination();
+  }
+
+  function sortPosts() {
+    const order = document.getElementById('sortOrder').value;
+    
+    allPosts.sort((a, b) => {
+      const dateA = parseInt(a.dataset.date);
+      const dateB = parseInt(b.dataset.date);
+      return order === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+
+    // Reordenar en el DOM
+    allPosts.forEach(post => grid.appendChild(post));
+    updatePagination();
+  }
+
+  function changePage(direction) {
+    currentPage += direction;
+    updatePagination();
+    window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+  }
+
+  // Ejecución inicial al cargar la vista
+  document.addEventListener("DOMContentLoaded", () => {
+    sortPosts();
+  });
+</script>
