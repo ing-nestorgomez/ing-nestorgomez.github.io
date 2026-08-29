@@ -70,8 +70,9 @@ title: Inicio
             {{ featured.excerpt | strip_html | truncate: 180 }}
           {% endif %}
         </p>
-        <a href="{{ featured.url | relative_url }}" class="btn btn--primary">
-          Leer Artículo Completo <i class="fa-solid fa-arrow-right"></i>
+        <!-- Cambiado a la clase program-card__link y texto "Leer más" -->
+        <a href="{{ featured.url | relative_url }}" class="program-card__link">
+          Leer más <i class="fa-solid fa-arrow-right"></i>
         </a>
       </div>
 
@@ -80,7 +81,7 @@ title: Inicio
 </section>
 {% endif %}
 
-<!-- 3. GRID DE PUBLICACIONES RESTANTES (3 POSTS) -->
+<!-- 3. GRID DE PUBLICACIONES RESTANTES -->
 <section class="programs-section section-padding">
   <div class="container">
     
@@ -115,9 +116,10 @@ title: Inicio
       {% endfor %}
     </div>
 
+    <!-- BOTÓN INFERIOR CAMBIADO A "Ir al blog" -->
     <div class="programs-footer text-center">
       <a href="{{ '/pages/blog.html' | relative_url }}" class="btn btn--primary">
-        Ver Todos los Artículos <i class="fa-solid fa-arrow-right"></i>
+        Ir al blog <i class="fa-solid fa-arrow-right"></i>
       </a>
     </div>
 
