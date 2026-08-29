@@ -7,7 +7,13 @@ markdown: kramdown
 theme: null
 
 plugins:
-  - jekyll-paginate
+  - jekyll-paginate-v2
 
-paginate: 15
-paginate_path: "/pages/blog/page:num/"
+pagination:
+  enabled: true
+  per_page: 15
+  permalink: '/pages/blog/pagina/:num/'
+  title: ':title - Página :num'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
