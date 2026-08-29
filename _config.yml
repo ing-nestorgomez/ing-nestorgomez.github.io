@@ -5,3 +5,9 @@ year: 2026
 # Configuración básica de Jekyll
 markdown: kramdown
 theme: null
+
+plugins:
+  - jekyll-paginate
+
+paginate: 15
+paginate_path: "/pages/blog/page:num/"
