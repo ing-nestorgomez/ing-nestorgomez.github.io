@@ -310,3 +310,22 @@
     cursor: not-allowed;
   }
 }
+
+/* ==========================================
+   CORRECCIÓN DE DISPOSICIÓN VERTICAL DE TARJETAS
+   ========================================== */
+
+/* Fuerza la dirección vertical en las tarjetas gestionadas por el JS */
+.program-card.post-item {
+  flex-direction: column !important;
+}
+
+/* Asegura que el contenedor de la imagen ocupe el 100% superior */
+.program-card.post-item .program-card__image-wrapper {
+  width: 100% !important;
+}
+
+/* Opcional: Evita que el contenedor principal fuerce alineación horizontal */
+#postsGrid {
+  display: grid !important;
+}
