@@ -1,11 +1,12 @@
 ---
 layout: blog-layout
 title: Blog
-permalink: /pages/blog.html
+permalink: /pages/blog/
 ---
 
+<!-- Rejilla de Posts Paginados -->
 <div class="programs-grid">
-  {% for post in site.posts %}
+  {% for post in paginator.posts %}
     <article class="program-card">
       <div class="program-card__image-wrapper">
         <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="program-card__img">
@@ -29,3 +30,22 @@ permalink: /pages/blog.html
     </article>
   {% endfor %}
 </div>
+
+<!-- Controles de Paginación -->
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__btn">
+      <i class="fa-solid fa-arrow-left"></i> Anterior
+    </a>
+  {% endif %}
+
+  <span class="pagination__info">Página {{ paginator.page }} de {{ paginator.total_pages }}</span>
+
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__btn">
+      Siguiente <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  {% endif %}
+</div>
+{% endif %}
