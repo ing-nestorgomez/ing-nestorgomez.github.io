@@ -164,3 +164,33 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================================
+   ESTILOS DE BOTONES
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &--primary {
+    background-color: #0b2545;
+    color: #ffffff;
+    border: 2px solid #0b2545;
+
+    &:hover {
+      background-color: #007acc;
+      border-color: #007acc;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+  }
+}
