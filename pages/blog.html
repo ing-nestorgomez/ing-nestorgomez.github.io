@@ -1,169 +1,31 @@
-<!-- HERO / CABECERA DEL BLOG -->
-<section class="blog-hero">
-  <div class="container text-center">
-    <span class="section-subtitle">OUR ARTICLES & NEWS</span>
-    <h1 class="blog-hero__title">Latest Insights & Ski Guides</h1>
-    <p class="blog-hero__desc">
-      Explore our expert articles, tips, and news to get the most out of your time on the slopes.
-    </p>
-  </div>
-</section>
+---
+layout: blog-layout
+title: Blog & Tutoriales
+permalink: /pages/blog.html
+---
 
-<!-- GRID PRINCIPAL DE ENTRADAS DEL BLOG -->
-<section class="blog-listing section-padding">
-  <div class="container">
-    
-    <div class="blog-grid">
-      
-      <!-- Post 1 -->
-      <article class="blog-card">
-        <div class="blog-card__image-wrapper">
-          <img src="assets/images/blog-1.jpg" alt="Skiing Techniques" class="blog-card__img">
-          <span class="blog-card__category">Technique</span>
+<div class="programs-grid">
+  {% for post in site.posts %}
+    <article class="program-card">
+      <div class="program-card__image-wrapper">
+        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="program-card__img">
+        <div class="program-card__icon-badge">
+          <i class="fa-solid fa-newspaper"></i>
         </div>
-        <div class="blog-card__body">
-          <div class="blog-card__meta">
-            <span class="blog-card__date"><i class="fa-regular fa-calendar"></i> Aug 24, 2026</span>
-            <span class="blog-card__read-time"><i class="fa-regular fa-clock"></i> 5 min read</span>
-          </div>
-          <h2 class="blog-card__title">
-            <a href="/blog/essential-skiing-techniques">10 Essential Skiing Techniques for Beginners</a>
-          </h2>
-          <p class="blog-card__excerpt">
-            Mastering the basics is crucial for a safe and enjoyable experience on the slopes. Here are the core skills you need...
-          </p>
-          <a href="/blog/essential-skiing-techniques" class="blog-card__link">
-            Read Article <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-      <!-- Post 2 -->
-      <article class="blog-card">
-        <div class="blog-card__image-wrapper">
-          <img src="assets/images/blog-2.jpg" alt="Choosing Ski Gear" class="blog-card__img">
-          <span class="blog-card__category">Equipment</span>
-        </div>
-        <div class="blog-card__body">
-          <div class="blog-card__meta">
-            <span class="blog-card__date"><i class="fa-regular fa-calendar"></i> Aug 20, 2026</span>
-            <span class="blog-card__read-time"><i class="fa-regular fa-clock"></i> 7 min read</span>
-          </div>
-          <h2 class="blog-card__title">
-            <a href="/blog/how-to-choose-ski-gear">How to Choose the Right Skiing Gear This Season</a>
-          </h2>
-          <p class="blog-card__excerpt">
-            From boots to goggles, finding equipment that fits properly can make or break your trip. Learn how to pick the best gear...
-          </p>
-          <a href="/blog/how-to-choose-ski-gear" class="blog-card__link">
-            Read Article <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-      <!-- Post 3 -->
-      <article class="blog-card">
-        <div class="blog-card__image-wrapper">
-          <img src="assets/images/blog-3.jpg" alt="Safety Tips" class="blog-card__img">
-          <span class="blog-card__category">Safety</span>
-        </div>
-        <div class="blog-card__body">
-          <div class="blog-card__meta">
-            <span class="blog-card__date"><i class="fa-regular fa-calendar"></i> Aug 15, 2026</span>
-            <span class="blog-card__read-time"><i class="fa-regular fa-clock"></i> 4 min read</span>
-          </div>
-          <h2 class="blog-card__title">
-            <a href="/blog/mountain-safety-tips">Mountain Safety: Rules Every Skier Should Know</a>
-          </h2>
-          <p class="blog-card__excerpt">
-            Understanding mountain etiquette and safety protocols is essential before heading up the chairlift...
-          </p>
-          <a href="/blog/mountain-safety-tips" class="blog-card__link">
-            Read Article <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-      <!-- Post 4 -->
-      <article class="blog-card">
-        <div class="blog-card__image-wrapper">
-          <img src="assets/images/blog-4.jpg" alt="Top Resorts" class="blog-card__img">
-          <span class="blog-card__category">Destinations</span>
-        </div>
-        <div class="blog-card__body">
-          <div class="blog-card__meta">
-            <span class="blog-card__date"><i class="fa-regular fa-calendar"></i> Aug 10, 2026</span>
-            <span class="blog-card__read-time"><i class="fa-regular fa-clock"></i> 6 min read</span>
-          </div>
-          <h2 class="blog-card__title">
-            <a href="/blog/top-ski-resorts">Top 5 Alpine Destinations to Visit This Winter</a>
-          </h2>
-          <p class="blog-card__excerpt">
-            Discover breathtaking mountain landscapes and world-class slopes in our top recommended winter resorts...
-          </p>
-          <a href="/blog/top-ski-resorts" class="blog-card__link">
-            Read Article <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-      <!-- Post 5 -->
-      <article class="blog-card">
-        <div class="blog-card__image-wrapper">
-          <img src="assets/images/blog-5.jpg" alt="Fitness Training" class="blog-card__img">
-          <span class="blog-card__category">Fitness</span>
-        </div>
-        <div class="blog-card__body">
-          <div class="blog-card__meta">
-            <span class="blog-card__date"><i class="fa-regular fa-calendar"></i> Aug 02, 2026</span>
-            <span class="blog-card__read-time"><i class="fa-regular fa-clock"></i> 8 min read</span>
-          </div>
-          <h2 class="blog-card__title">
-            <a href="/blog/off-season-ski-fitness">Off-Season Exercises to Prepare Your Legs for Skiing</a>
-          </h2>
-          <p class="blog-card__excerpt">
-            Get your body ready before the snow falls with these targeted leg and core conditioning workouts...
-          </p>
-          <a href="/blog/off-season-ski-fitness" class="blog-card__link">
-            Read Article <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-      <!-- Post 6 -->
-      <article class="blog-card">
-        <div class="blog-card__image-wrapper">
-          <img src="assets/images/blog-6.jpg" alt="Advanced Carving" class="blog-card__img">
-          <span class="blog-card__category">Coaching</span>
-        </div>
-        <div class="blog-card__body">
-          <div class="blog-card__meta">
-            <span class="blog-card__date"><i class="fa-regular fa-calendar"></i> Jul 28, 2026</span>
-            <span class="blog-card__read-time"><i class="fa-regular fa-clock"></i> 5 min read</span>
-          </div>
-          <h2 class="blog-card__title">
-            <a href="/blog/carving-turn-secrets">Secrets to Perfecting Your Carving Turns</a>
-          </h2>
-          <p class="blog-card__excerpt">
-            Learn how to slice through groomers with precision, edge control, and maximum speed efficiency...
-          </p>
-          <a href="/blog/carving-turn-secrets" class="blog-card__link">
-            Read Article <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </article>
-
-    </div>
-
-    <!-- PAGINACIÓN -->
-    <nav class="pagination">
-      <a href="#" class="pagination__btn pagination__btn--active">1</a>
-      <a href="#" class="pagination__btn">2</a>
-      <a href="#" class="pagination__btn">3</a>
-      <a href="#" class="pagination__btn pagination__btn--next">
-        <i class="fa-solid fa-chevron-right"></i>
-      </a>
-    </nav>
-
-  </div>
-</section>
+      </div>
+      <div class="program-card__body">
+        <h3 class="program-card__title">{{ post.title }}</h3>
+        <p class="program-card__desc">
+          {% if post.excerpt_custom %}
+            {{ post.excerpt_custom }}
+          {% else %}
+            {{ post.excerpt | strip_html | truncate: 100 }}
+          {% endif %}
+        </p>
+        <a href="{{ post.url | relative_url }}" class="program-card__link">
+          Leer más <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </article>
+  {% endfor %}
+</div>
