@@ -1,0 +1,135 @@
+---
+layout: default
+---
+
+<div class="container post-container">
+  <div class="post-layout">
+    
+    <!-- COLUMNA PRINCIPAL (ARTÍCULO) -->
+    <main class="post-main">
+      <article class="post-content">
+        
+        <!-- Cabecera del Post -->
+        <header class="post-header">
+          <h1 class="post-title">{{ page.title }}</h1>
+          <div class="post-meta">
+            <span><i class="fa-regular fa-calendar"></i> {{ page.date | date: "%d/%m/%Y" }}</span>
+            {% if page.categories.size > 0 %}
+              <span><i class="fa-regular fa-folder"></i> {{ page.categories | join: ", " }}</span>
+            {% endif %}
+          </div>
+          {% if page.image %}
+            <img src="{{ page.image | relative_url }}" class="post-featured-image" alt="{{ page.title }}">
+          {% endif %}
+        </header>
+
+        <!-- Cuerpo de la entrada -->
+        <div class="post-body">
+          {{ content }}
+        </div>
+
+        <!-- Botones de Compartir -->
+        <div class="post-share">
+          <h4>Compartir publicación:</h4>
+          <div class="share-buttons">
+            <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url }}" target="_blank" rel="noopener" class="share-btn twitter" title="Compartir en X/Twitter">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" target="_blank" rel="noopener" class="share-btn facebook" title="Compartir en Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}&title={{ page.title | url_encode }}" target="_blank" rel="noopener" class="share-btn linkedin" title="Compartir en LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://api.whatsapp.com/send?text={{ page.title | url_encode }}%20{{ site.url }}{{ page.url }}" target="_blank" rel="noopener" class="share-btn whatsapp" title="Compartir en WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Carrusel de Entradas Relacionadas -->
+        <div class="related-posts-section">
+          <h3>Entradas relacionadas</h3>
+          <div class="related-carousel">
+            {% assign related_count = 0 %}
+            {% for post in site.posts %}
+              {% if post.url != page.url and related_count < 6 %}
+                {% for category in post.categories %}
+                  {% if page.categories contains category %}
+                    <div class="related-card">
+                      <a href="{{ post.url | relative_url }}">
+                        {% if post.image %}
+                          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+                        {% else %}
+                          <img src="https://picsum.photos/300/200?grayscale" alt="{{ post.title }}">
+                        {% endif %}
+                        <div class="related-card-body">
+                          <h5>{{ post.title }}</h5>
+                          <span class="related-date">{{ post.date | date: "%d/%m/%Y" }}</span>
+                        </div>
+                      </a>
+                    </div>
+                    {% assign related_count = related_count | plus: 1 %}
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Sistema de Comentarios Disqus -->
+        {% if page.comments != false %}
+        <section class="disqus-section">
+          <div id="disqus_thread"></div>
+          <script>
+              var disqus_config = function () {
+                  this.page.url = '{{ site.url }}{{ page.url }}';
+                  this.page.identifier = '{{ page.url }}';
+              };
+              (function() {
+                  var d = document, s = d.createElement('script');
+                  s.src = 'https://nestorgomez-dev.disqus.com/embed.js';
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+              })();
+          </script>
+          <noscript>Por favor habilita JavaScript para ver los <a href="https://disqus.com/?ref_noscript">comentarios vía Disqus.</a></noscript>
+        </section>
+        {% endif %}
+
+      </article>
+    </main>
+
+    <!-- SIDEBAR DERECHO -->
+    <aside class="post-sidebar">
+      
+      <!-- Widget: Sobre el autor -->
+      <div class="sidebar-widget">
+        <h4 class="widget-title">Sobre el autor</h4>
+        <div class="widget-author">
+          <img src="{{ '/assets/images/logo-rotsen.svg' | relative_url }}" alt="Rotsen" class="author-avatar">
+          <p><strong>Rotsen Zemog</strong></p>
+          <p class="author-bio">Escribiendo relatos de ciencia ficción, worldbuilding y reflexiones entre la ingeniería y las letras.</p>
+        </div>
+      </div>
+
+      <!-- Widget: Últimas publicaciones -->
+      <div class="sidebar-widget">
+        <h4 class="widget-title">Recientes</h4>
+        <ul class="recent-posts-list">
+          {% for post in site.posts limit:5 %}
+            <li>
+              <a href="{{ post.url | relative_url }}">
+                <span class="recent-title">{{ post.title }}</span>
+                <span class="recent-date">{{ post.date | date: "%d/%m/%Y" }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
