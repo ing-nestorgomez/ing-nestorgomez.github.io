@@ -2,7 +2,7 @@
    SECCIÓN Y TARJETAS DEL BLOG
    ========================================================= */
 .programs-section {
-  background-color: #ffffff;
+  background-color: transparent;
 }
 
 .programs-grid {
@@ -18,7 +18,7 @@
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   border: 1px solid #f1f5f9;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
@@ -28,6 +28,7 @@
   &__image-wrapper {
     position: relative;
     height: 220px;
+    width: 100% !important;
 
     .program-card__img {
       width: 100%;
@@ -84,6 +85,11 @@
       color: #007acc;
     }
   }
+
+  /* Ajuste vertical si viene manipulado vía JS */
+  &.post-item {
+    flex-direction: column !important;
+  }
 }
 
 .programs-footer {
@@ -101,6 +107,7 @@
   top: -40px;
   position: relative;
   margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .featured-post-grid {
@@ -162,14 +169,6 @@
   margin-bottom: 25px;
 }
 
-/* Responsivo */
-@media (max-width: 992px) {
-  .programs-grid,
-  .featured-post-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* =========================================================
    ESTILOS DE BOTONES
    ========================================================= */
@@ -201,45 +200,8 @@
 }
 
 /* =========================================================
-   ESTILOS DE PAGINACIÓN
+   BARRA DE BÚSQUEDA Y FILTROS
    ========================================================= */
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 50px;
-
-  &__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background-color: #0b2545;
-    color: #ffffff;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #007acc;
-      color: #ffffff;
-    }
-  }
-
-  &__info {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #64748b;
-  }
-}
-
-/* ==========================================
-   BARRA DE BÚSQUEDA, FILTROS Y PAGINACIÓN JS
-   ========================================== */
-
 .blog-tools {
   display: flex;
   justify-content: space-between;
@@ -261,7 +223,7 @@
     background-color: #ffffff;
     color: #1e293b;
     outline: none;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 
     &:focus {
       border-color: #00aeef;
@@ -284,6 +246,7 @@
     color: #1e293b;
     outline: none;
     cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
@@ -316,55 +279,73 @@
   }
 }
 
-/* ==========================================
-   CORRECCIÓN DE DISPOSICIÓN VERTICAL DE TARJETAS
-   ========================================== */
-
-/* Fuerza la dirección vertical en las tarjetas gestionadas por el JS */
-.program-card.post-item {
-  flex-direction: column !important;
-}
-
-/* Asegura que el contenedor de la imagen ocupe el 100% superior */
-.program-card.post-item .program-card__image-wrapper {
-  width: 100% !important;
-}
-
-/* Opcional: Evita que el contenedor principal fuerce alineación horizontal */
 #postsGrid {
   display: grid !important;
 }
 
-/* ==========================================
-   MODO OSCURO PARA TARJETAS DEL BLOG Y DESTACADO 
-   ========================================== */
+/* Responsivo */
+@media (max-width: 992px) {
+  .programs-grid,
+  .featured-post-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
+/* =========================================================
+   MODO OSCURO PARA TARJETAS Y SECCIONES DEL BLOG
+   ========================================================= */
 body.dark-theme, [data-theme="dark"] {
   
-  /* Tarjetas normales y tarjeta destacada */
-  .blog-card, 
-  .featured-post-card, 
-  .post-card {
+  /* Tarjeta de post destacado */
+  .featured-post-section {
     background-color: #333333 !important;
     color: #d0d0d0 !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
+  }
 
-    /* Títulos y textos internos */
-    h1, h2, h3, h4, h5, h6,
-    .post-title,
-    .featured-title,
-    p, 
-    .post-excerpt {
+  .featured-post__title {
+    color: #ffffff !important;
+  }
+
+  .featured-post__desc {
+    color: #d0d0d0 !important;
+  }
+
+  /* Tarjetas del grid del blog */
+  .program-card {
+    background-color: #333333 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+
+    &__title {
+      color: #ffffff !important;
+    }
+
+    &__desc {
       color: #d0d0d0 !important;
     }
 
-    /* Enlaces dentro de las tarjetas */
-    a {
-      color: #d0d0d0;
+    &__link {
+      color: #38bdf8 !important;
 
       &:hover {
-        color: var(--accent-color, #38bdf8);
+        color: #7dd3fc !important;
       }
     }
+
+    &__icon-badge {
+      border-color: #333333 !important;
+    }
+  }
+
+  /* Filtros y Buscador en Modo Oscuro */
+  .search-box input,
+  .sort-box select {
+    background-color: #333333 !important;
+    color: #d0d0d0 !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .sort-box {
+    color: #d0d0d0 !important;
   }
 }
