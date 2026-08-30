@@ -334,3 +334,37 @@
 #postsGrid {
   display: grid !important;
 }
+
+/* ==========================================
+   MODO OSCURO PARA TARJETAS DEL BLOG Y DESTACADO
+   ========================================== */
+
+body.dark-theme, [data-theme="dark"] {
+  
+  /* Tarjetas normales y tarjeta destacada */
+  .blog-card, 
+  .featured-post-card, 
+  .post-card {
+    background-color: #333333 !important;
+    color: #d0d0d0 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+
+    /* Títulos y textos internos */
+    h1, h2, h3, h4, h5, h6,
+    .post-title,
+    .featured-title,
+    p, 
+    .post-excerpt {
+      color: #d0d0d0 !important;
+    }
+
+    /* Enlaces dentro de las tarjetas */
+    a {
+      color: #d0d0d0;
+
+      &:hover {
+        color: var(--accent-color, #38bdf8);
+      }
+    }
+  }
+}
