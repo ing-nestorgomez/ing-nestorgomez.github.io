@@ -197,24 +197,43 @@
   }
 }
 
-/* Soporte explícito para cuando se activa la clase de modo oscuro (body.dark-theme o data-theme="dark") */
+/* MODO OSCURO PARA SIDEBAR Y TARJETAS RELACIONADAS */
 body.dark-theme, [data-theme="dark"] {
-  .sidebar-widget, .related-card {
-    background: var(--card-bg-dark, #1e293b);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: #f8fafc;
-  }
 
-  .sidebar-widget .widget-title {
-    color: #f8fafc;
-  }
+  /* Widgets del Sidebar y Tarjetas Relacionadas */
+  .sidebar-widget, 
+  .related-card {
+    background-color: #333333 !important;
+    color: #d0d0d0 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
 
-  .recent-posts-list a {
-    color: #e2e8f0;
-  }
+    .widget-title,
+    h5,
+    h4 {
+      color: #ffffff !important;
+    }
 
-  .author-bio, .recent-date, .post-meta {
-    color: #94a3b8;
+    .author-bio, 
+    .recent-date, 
+    .related-date, 
+    .post-meta {
+      color: #a0a0a0 !important;
+    }
+
+    /* Lista de publicaciones recientes */
+    .recent-posts-list {
+      li {
+        border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+      }
+
+      a {
+        color: #d0d0d0 !important;
+
+        &:hover .recent-title {
+          color: var(--accent-color, #38bdf8) !important;
+        }
+      }
+    }
   }
 }
 
