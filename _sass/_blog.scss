@@ -292,14 +292,16 @@
 }
 
 /* =========================================================
-   MODO OSCURO PARA TARJETAS Y SECCIONES DEL BLOG
+   MODO OSCURO PARA EL BLOG Y POST DESTACADO
    ========================================================= */
-body.dark-theme, [data-theme="dark"] {
+body.dark-theme,
+[data-theme="dark"],
+body[data-theme="dark"] {
   
-  /* Tarjeta de post destacado */
+  /* 1. SECCIÓN CONTENEDORA DEL POST DESTACADO */
   .featured-post-section {
-    background-color: #333333 !important;
-    color: #d0d0d0 !important;
+    background-color: #1e293b !important; /* Gris oscuro elegante */
+    color: #e2e8f0 !important;
   }
 
   .featured-post__title {
@@ -307,13 +309,17 @@ body.dark-theme, [data-theme="dark"] {
   }
 
   .featured-post__desc {
-    color: #d0d0d0 !important;
+    color: #cbd5e1 !important;
   }
 
-  /* Tarjetas del grid del blog */
+  .section-subtitle {
+    color: #38bdf8 !important; /* Azul claro accesible */
+  }
+
+  /* 2. TARJETAS DEL GRID DE PUBLICACIONES (.program-card) */
   .program-card {
-    background-color: #333333 !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
 
     &__title {
@@ -321,7 +327,7 @@ body.dark-theme, [data-theme="dark"] {
     }
 
     &__desc {
-      color: #d0d0d0 !important;
+      color: #cbd5e1 !important;
     }
 
     &__link {
@@ -333,19 +339,26 @@ body.dark-theme, [data-theme="dark"] {
     }
 
     &__icon-badge {
-      border-color: #333333 !important;
+      border-color: #1e293b !important;
+      background-color: #0f172a !important;
+      color: #38bdf8 !important;
     }
   }
 
-  /* Filtros y Buscador en Modo Oscuro */
+  /* 3. TÍTULO DE LA SECCIÓN "Últimas Publicaciones" */
+  .section-title {
+    color: #ffffff !important;
+  }
+
+  /* 4. BUSCADOR Y SELECTOR DE ORDEN (PÁGINA BLOG) */
   .search-box input,
   .sort-box select {
-    background-color: #333333 !important;
-    color: #d0d0d0 !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
   }
 
   .sort-box {
-    color: #d0d0d0 !important;
+    color: #cbd5e1 !important;
   }
 }
