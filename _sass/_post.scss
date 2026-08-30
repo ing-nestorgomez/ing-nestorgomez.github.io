@@ -207,15 +207,17 @@
 }
 
 /* =========================================================
-   MODO OSCURO PARA SIDEBAR Y POST INDIVIDUAL
+   MODO OSCURO PARA SIDEBAR Y DETALLE DE POST
    ========================================================= */
-body.dark-theme, [data-theme="dark"] {
+body.dark-theme,
+[data-theme="dark"],
+body[data-theme="dark"] {
 
-  /* Tarjeta del Autor y Recientes en Sidebar */
+  /* Widgets del Sidebar (Sobre el autor, Post Recientes, etc.) */
   .sidebar-widget {
-    background-color: #333333 !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-    color: #d0d0d0 !important;
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
 
     .widget-title {
       color: #ffffff !important;
@@ -223,17 +225,17 @@ body.dark-theme, [data-theme="dark"] {
     }
 
     .author-bio {
-      color: #d0d0d0 !important;
+      color: #cbd5e1 !important;
     }
   }
 
   .recent-posts-list {
     li {
-      border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+      border-bottom-color: #334155 !important;
     }
 
     a {
-      color: #d0d0d0 !important;
+      color: #e2e8f0 !important;
 
       &:hover .recent-title {
         color: #38bdf8 !important;
@@ -241,27 +243,27 @@ body.dark-theme, [data-theme="dark"] {
     }
 
     .recent-date {
-      color: #a0a0a0 !important;
+      color: #94a3b8 !important;
     }
   }
 
   /* Tarjetas del carrusel de entradas relacionadas */
   .related-card {
-    background-color: #333333 !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-    color: #d0d0d0 !important;
+    background-color: #1e293b !important;
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
 
     h5 {
       color: #ffffff !important;
     }
 
     .related-date {
-      color: #a0a0a0 !important;
+      color: #94a3b8 !important;
     }
   }
 
-  /* Líneas divisorias de la sección compartir */
+  /* Divisores de la sección compartir */
   .post-share {
-    border-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: #334155 !important;
   }
 }
