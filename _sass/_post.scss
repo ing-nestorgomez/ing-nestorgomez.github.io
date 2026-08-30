@@ -1,4 +1,6 @@
-/* --- LAYOUT DEL POST Y SIDEBAR --- */
+/* =========================================================
+   LAYOUT DEL POST INDIVIDUAL Y SIDEBAR
+   ========================================================= */
 .post-container {
   padding-top: 30px;
   padding-bottom: 60px;
@@ -11,17 +13,16 @@
 
 .post-layout {
   display: grid;
-  /* minmax(0, 1fr) evita que las imágenes empujen el sidebar fuera de la pantalla */
   grid-template-columns: minmax(0, 1fr) 300px;
   gap: 40px;
   align-items: start;
 }
 
 .post-main {
-  min-width: 0; /* Previene desbordamientos de código/imágenes */
+  min-width: 0;
 }
 
-/* Post Principal */
+/* Cabecera y Contenido del Post */
 .post-header {
   margin-bottom: 25px;
 
@@ -105,10 +106,11 @@
   .related-card {
     min-width: 220px;
     max-width: 220px;
-    background: var(--bg-secondary, #f8fafc);
-    border: 1px solid var(--border-color, #e2e8f0);
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 
     a { text-decoration: none; color: inherit; }
     img { width: 100%; height: 120px; object-fit: cover; }
@@ -117,29 +119,29 @@
       padding: 10px; 
       h5 { font-size: 0.95rem; margin: 0 0 5px 0; line-height: 1.3; }
     }
-    .related-date { font-size: 0.75rem; color: var(--muted-text, #64748b); }
+    .related-date { font-size: 0.75rem; color: #64748b; }
   }
 }
 
-/* SIDEBAR CON MODO CLARO Y OSCURO ADAPTATIVO */
+/* Sidebar */
 .post-sidebar {
   width: 100%;
   box-sizing: border-box;
 }
 
 .sidebar-widget {
-  /* En tema claro: fondo suave e iluminación sobria */
-  background: var(--bg-secondary, #f8fafc);
-  border: 1px solid var(--border-color, #e2e8f0);
-  color: var(--text-color, #1e293b);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 
   .widget-title {
     font-size: 1.1rem;
-    color: var(--text-color, #0f172a);
-    border-bottom: 2px solid var(--accent-color, #0284c7);
+    color: #0f172a;
+    border-bottom: 2px solid #0284c7;
     padding-bottom: 8px;
     margin-bottom: 15px;
     margin-top: 0;
@@ -154,7 +156,7 @@
 
   .author-bio {
     font-size: 0.85rem;
-    color: var(--muted-text, #64748b);
+    color: #64748b;
     margin-top: 5px;
   }
 }
@@ -166,7 +168,7 @@
 
   li { 
     margin-bottom: 12px;
-    border-bottom: 1px dashed var(--border-color, #e2e8f0);
+    border-bottom: 1px dashed #e2e8f0;
     padding-bottom: 8px;
     
     &:last-child {
@@ -177,11 +179,11 @@
 
   a { 
     text-decoration: none; 
-    color: var(--text-color, #1e293b); 
+    color: #1e293b; 
     display: block;
     
     &:hover .recent-title {
-      color: var(--accent-color, #0284c7);
+      color: #0284c7;
     }
   }
 
@@ -193,47 +195,7 @@
 
   .recent-date { 
     font-size: 0.75rem; 
-    color: var(--muted-text, #64748b); 
-  }
-}
-
-/* MODO OSCURO PARA SIDEBAR Y TARJETAS RELACIONADAS */
-body.dark-theme, [data-theme="dark"] {
-
-  /* Widgets del Sidebar y Tarjetas Relacionadas */
-  .sidebar-widget, 
-  .related-card {
-    background-color: #333333 !important;
-    color: #d0d0d0 !important;
-    border-color: rgba(255, 255, 255, 0.1) !important;
-
-    .widget-title,
-    h5,
-    h4 {
-      color: #ffffff !important;
-    }
-
-    .author-bio, 
-    .recent-date, 
-    .related-date, 
-    .post-meta {
-      color: #a0a0a0 !important;
-    }
-
-    /* Lista de publicaciones recientes */
-    .recent-posts-list {
-      li {
-        border-bottom-color: rgba(255, 255, 255, 0.1) !important;
-      }
-
-      a {
-        color: #d0d0d0 !important;
-
-        &:hover .recent-title {
-          color: var(--accent-color, #38bdf8) !important;
-        }
-      }
-    }
+    color: #64748b; 
   }
 }
 
@@ -241,5 +203,65 @@ body.dark-theme, [data-theme="dark"] {
 @media (max-width: 900px) {
   .post-layout {
     grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   MODO OSCURO PARA SIDEBAR Y POST INDIVIDUAL
+   ========================================================= */
+body.dark-theme, [data-theme="dark"] {
+
+  /* Tarjeta del Autor y Recientes en Sidebar */
+  .sidebar-widget {
+    background-color: #333333 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #d0d0d0 !important;
+
+    .widget-title {
+      color: #ffffff !important;
+      border-bottom-color: #38bdf8 !important;
+    }
+
+    .author-bio {
+      color: #d0d0d0 !important;
+    }
+  }
+
+  .recent-posts-list {
+    li {
+      border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    a {
+      color: #d0d0d0 !important;
+
+      &:hover .recent-title {
+        color: #38bdf8 !important;
+      }
+    }
+
+    .recent-date {
+      color: #a0a0a0 !important;
+    }
+  }
+
+  /* Tarjetas del carrusel de entradas relacionadas */
+  .related-card {
+    background-color: #333333 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #d0d0d0 !important;
+
+    h5 {
+      color: #ffffff !important;
+    }
+
+    .related-date {
+      color: #a0a0a0 !important;
+    }
+  }
+
+  /* Líneas divisorias de la sección compartir */
+  .post-share {
+    border-color: rgba(255, 255, 255, 0.1) !important;
   }
 }
