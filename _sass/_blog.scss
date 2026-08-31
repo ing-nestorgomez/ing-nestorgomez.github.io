@@ -292,16 +292,14 @@
 }
 
 /* =========================================================
-   MODO OSCURO PARA EL BLOG Y POST DESTACADO
+   MODO OSCURO PARA EL BLOG Y POST DESTACADO (CLASE: .dark-mode)
    ========================================================= */
-body.dark-theme,
-[data-theme="dark"],
-body[data-theme="dark"] {
+body.dark-mode {
   
-  /* 1. SECCIÓN CONTENEDORA DEL POST DESTACADO */
+  /* 1. SECCIÓN CONTENEDORA DEL POST DESTACADO (HOME) */
   .featured-post-section {
-    background-color: #1e293b !important; /* Gris oscuro elegante */
-    color: #e2e8f0 !important;
+    background-color: #202020 !important;
+    color: #d0d0d0 !important;
   }
 
   .featured-post__title {
@@ -309,25 +307,25 @@ body[data-theme="dark"] {
   }
 
   .featured-post__desc {
-    color: #cbd5e1 !important;
+    color: #b0b0b0 !important;
   }
 
   .section-subtitle {
-    color: #38bdf8 !important; /* Azul claro accesible */
+    color: #38bdf8 !important;
   }
 
   /* 2. TARJETAS DEL GRID DE PUBLICACIONES (.program-card) */
   .program-card {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    background-color: #202020 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
 
     &__title {
       color: #ffffff !important;
     }
 
     &__desc {
-      color: #cbd5e1 !important;
+      color: #b0b0b0 !important;
     }
 
     &__link {
@@ -339,9 +337,9 @@ body[data-theme="dark"] {
     }
 
     &__icon-badge {
-      border-color: #1e293b !important;
-      background-color: #0f172a !important;
-      color: #38bdf8 !important;
+      border-color: #202020 !important;
+      background-color: #0b2545 !important;
+      color: #ffffff !important;
     }
   }
 
@@ -353,12 +351,12 @@ body[data-theme="dark"] {
   /* 4. BUSCADOR Y SELECTOR DE ORDEN (PÁGINA BLOG) */
   .search-box input,
   .sort-box select {
-    background-color: #1e293b !important;
-    color: #f8fafc !important;
-    border-color: #334155 !important;
+    background-color: #202020 !important;
+    color: #e0e0e0 !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
   }
 
   .sort-box {
-    color: #cbd5e1 !important;
+    color: #d0d0d0 !important;
   }
 }
