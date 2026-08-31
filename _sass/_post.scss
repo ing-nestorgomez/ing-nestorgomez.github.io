@@ -207,17 +207,15 @@
 }
 
 /* =========================================================
-   MODO OSCURO PARA SIDEBAR Y DETALLE DE POST
+   MODO OSCURO PARA SIDEBAR Y DETALLE DE POST (CLASE: .dark-mode)
    ========================================================= */
-body.dark-theme,
-[data-theme="dark"],
-body[data-theme="dark"] {
+body.dark-mode {
 
   /* Widgets del Sidebar (Sobre el autor, Post Recientes, etc.) */
   .sidebar-widget {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
-    color: #cbd5e1 !important;
+    background-color: #202020 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #d0d0d0 !important;
 
     .widget-title {
       color: #ffffff !important;
@@ -225,17 +223,17 @@ body[data-theme="dark"] {
     }
 
     .author-bio {
-      color: #cbd5e1 !important;
+      color: #b0b0b0 !important;
     }
   }
 
   .recent-posts-list {
     li {
-      border-bottom-color: #334155 !important;
+      border-bottom-color: rgba(255, 255, 255, 0.1) !important;
     }
 
     a {
-      color: #e2e8f0 !important;
+      color: #e0e0e0 !important;
 
       &:hover .recent-title {
         color: #38bdf8 !important;
@@ -243,27 +241,27 @@ body[data-theme="dark"] {
     }
 
     .recent-date {
-      color: #94a3b8 !important;
+      color: #909090 !important;
     }
   }
 
   /* Tarjetas del carrusel de entradas relacionadas */
   .related-card {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
-    color: #cbd5e1 !important;
+    background-color: #202020 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #d0d0d0 !important;
 
     h5 {
       color: #ffffff !important;
     }
 
     .related-date {
-      color: #94a3b8 !important;
+      color: #909090 !important;
     }
   }
 
   /* Divisores de la sección compartir */
   .post-share {
-    border-color: #334155 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
   }
 }
