@@ -361,43 +361,36 @@ body.dark-mode {
   }
 }
 
-/* ((((((((((((((((((())))))))))))))))))))) 
- efecto hover en títulos y enlaces del post
-   ((((((((((((((((((())))))))))))))))))))) */
-
-.program-card__title a {
-  transition: color 0.2s ease;
-  
-  &:hover {
-    color: #007acc; /* Ajusta este color al primario de tu tema */
-  }
-}
-
 /* ==========================================
-   EFECTOS HOVER: TÍTULOS Y ZOOM EN IMÁGENES
+   EFECTOS HOVER: TÍTULOS Y ZOOM EN IMÁGENES (INCLUYE DESTACADO)
    ========================================== */
 
 /* 1. Contenedor con recorte para el zoom */
-.program-card__image-wrapper {
-  overflow: hidden !important; /* Mantiene la imagen dentro de sus límites */
+.program-card__image-wrapper,
+.featured-post__card {
+  overflow: hidden !important; /* Mantiene la imagen recortada */
 }
 
 /* Transición suave para la imagen */
-.program-card__img {
+.program-card__img,
+.featured-post__img {
   transition: transform 0.3s ease !important;
 }
 
 /* Efecto zoom al pasar el cursor sobre la tarjeta o sobre la imagen */
 .program-card:hover .program-card__img,
-.program-card__image-wrapper:hover .program-card__img {
-  transform: scale(1.08) !important; /* Ajusta el valor si quieres más o menos zoom */
+.program-card__image-wrapper:hover .program-card__img,
+.featured-post-section:hover .featured-post__img,
+.featured-post__card:hover .featured-post__img {
+  transform: scale(1.08) !important; /* Efecto lupa del 8% */
 }
 
-/* 2. Cambio de color en títulos al hacer hover */
-.program-card__title a {
+/* 2. Cambio de color en títulos al hacer hover (Tarjetas normales y Destacada) */
+.program-card__title a,
+.featured-post__title a {
   transition: color 0.2s ease;
 
   &:hover {
-    color: var(--primary-color, #007acc) !important; /* Cambia al color principal de tu tema */
+    color: var(--primary-color, #007acc) !important;
   }
 }
