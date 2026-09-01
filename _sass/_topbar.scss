@@ -28,3 +28,28 @@
     }
   }
 }
+
+/* ==========================================
+   ESTILOS HOVER PARA LA TOP BAR SUPERIOR
+   ========================================== */
+
+.top-bar-left, 
+.top-bar-right, 
+.top-bar { // Ajusta al contenedor superior que utilices
+  a {
+    transition: color 0.25s ease;
+
+    /* Cambio de color al hacer hover sobre los enlaces */
+    &:hover {
+      color: #ffffff !important;
+
+      /* Asegura que los iconos de FontAwesome dentro del enlace también cambien a blanco */
+      i, 
+      .fas, 
+      .far, 
+      .fab {
+        color: #ffffff !important;
+      }
+    }
+  }
+}
