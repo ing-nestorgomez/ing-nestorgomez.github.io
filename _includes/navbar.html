@@ -16,10 +16,30 @@
       <!-- Menú de Navegación -->
       <nav class="main-nav" id="mainNav">
         <ul class="nav__list">
-          <li><a class="nav__link" href="{{ '/' | relative_url }}">Portal</a></li>
-          <li><a class="nav__link" href="{{ '/pages/blog' | relative_url }}">Blog</a></li>
-          <li><a class="nav__link" href="{{ '/proyectos' | relative_url }}">Proyectos</a></li>
-          <li><a class="nav__link" href="{{ '/servicios' | relative_url }}">Servicios</a></li>
+          <li>
+            <a class="nav__link" href="{{ '/' | relative_url }}">Portal</a>
+          </li>
+          
+          <li>
+            <a class="nav__link" href="{{ '/pages/blog' | relative_url }}">Blog</a>
+          </li>
+          
+          <li>
+            <a class="nav__link" href="{{ '/proyectos' | relative_url }}">Proyectos</a>
+            <ul class="sub-menu">
+              <li><a href="{{ '/proyectos/app-administrativa' | relative_url }}">App Administrativa</a></li>
+              <li><a href="{{ '/proyectos/videojuego-2d' | relative_url }}">Videojuego 2D</a></li>
+            </ul>
+          </li>
+          
+          <li>
+            <a class="nav__link" href="{{ '/servicios' | relative_url }}">Servicios</a>
+            <ul class="sub-menu">
+              <li><a href="{{ '/servicios/desarrollo-web' | relative_url }}">Desarrollo Web</a></li>
+              <li><a href="{{ '/servicios/diseno-grafico' | relative_url }}">Diseño Gráfico</a></li>
+              <li><a href="{{ '/servicios/programacion-movil' | relative_url }}">Programación Móvil</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
 
