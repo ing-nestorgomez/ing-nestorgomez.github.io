@@ -266,3 +266,141 @@ $roll-bg-hover:  #28a8ea; /* Azul claro (hover resaltado) */
     }
   }
 }
+
+/* ==========================================
+   NAGAVECIÓN CON SUBMENÚS 3D EN PERSIANA
+   ========================================== */
+
+/* Paleta Oficial */
+$blue-dark:   #044690;
+$blue-medium: #0078d4;
+$blue-light:  #28a8ea;
+
+.cl-effect-2 {
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ítem principal del menú */
+  li {
+    position: relative;
+
+    &.has-submenu:hover {
+      .sub-menu {
+        pointer-events: auto;
+
+        li {
+          opacity: 1;
+          transform: rotateX(0deg) translateY(0);
+        }
+      }
+    }
+  }
+
+  /* --- ROLLING LINKS PRINCIPALES --- */
+  a.nav__link {
+    line-height: 40px;
+    perspective: 1000px;
+    display: inline-block;
+    text-decoration: none;
+
+    span {
+      position: relative;
+      display: inline-block;
+      padding: 0 16px;
+      background: $blue-dark;
+      color: #ffffff;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      transition: transform 0.3s ease;
+      transform-origin: 50% 0;
+      transform-style: preserve-3d;
+
+      &::before {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $blue-medium;
+        color: #ffffff;
+        content: attr(data-hover);
+        padding: 0 16px;
+        border-radius: 4px;
+        transition: background 0.3s ease;
+        transform: rotateX(-90deg);
+        transform-origin: 50% 0;
+        box-sizing: border-box;
+      }
+    }
+
+    &:hover span {
+      transform: rotateX(90deg) translateY(-20px);
+
+      &::before {
+        background: $blue-light;
+      }
+    }
+  }
+
+  /* --- SUBMENÚ PERSIANA 3D EN CASCADA --- */
+  .sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 210px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 5px;
+    perspective: 800px;
+    pointer-events: none;
+    z-index: 100;
+
+    li {
+      opacity: 0;
+      transform-origin: top center;
+      transform: rotateX(-90deg) translateY(-10px);
+      transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      /* Alternancia de los 3 Colores de Marca */
+      &:nth-child(1) {
+        transition-delay: 0.05s;
+        a { background: $blue-dark; }
+      }
+      &:nth-child(2) {
+        transition-delay: 0.12s;
+        a { background: $blue-medium; }
+      }
+      &:nth-child(3) {
+        transition-delay: 0.19s;
+        a { background: $blue-light; }
+      }
+
+      a {
+        display: block;
+        padding: 10px 15px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 4px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s ease, filter 0.2s ease;
+
+        &:hover {
+          filter: brightness(1.15);
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
+}
