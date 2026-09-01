@@ -1,54 +1,48 @@
 <header class="main-header">
   <div class="container main-header-content">
     
-    <!-- Contenedor del Logo -->
+    <!-- Logo -->
     <div class="logo">
       <a href="{{ '/' | relative_url }}">
-        <img src="{{ '/assets/images/logo-a.svg' | relative_url }}" alt="Logo Néstor Gómez" class="site-logo logo-light-desktop">
-        <img src="{{ '/assets/images/logo-b.svg' | relative_url }}" alt="Logo Néstor Gómez" class="site-logo logo-dark-desktop">
-        <img src="{{ '/assets/images/logo-c.svg' | relative_url }}" alt="Logo Néstor Gómez" class="site-logo logo-mobile">
+        <img src="{{ '/assets/images/logo-a.svg' | relative_url }}" alt="Logo" class="site-logo logo-light-desktop">
+        <img src="{{ '/assets/images/logo-b.svg' | relative_url }}" alt="Logo" class="site-logo logo-dark-desktop">
       </a>
     </div>
 
     <!-- Navegación y Acciones -->
     <div class="nav-wrapper">
       
-      <!-- Menú de Navegación -->
-      <nav class="main-nav" id="mainNav">
+      <nav class="main-nav cl-effect-2" id="mainNav">
         <ul class="nav__list">
           <li>
-            <a class="nav__link" href="{{ '/' | relative_url }}">Portal</a>
+            <a class="nav__link" href="{{ '/' | relative_url }}">
+              <span data-hover="Portal">Portal</span>
+            </a>
           </li>
-          
           <li>
-            <a class="nav__link" href="{{ '/pages/blog' | relative_url }}">Blog</a>
+            <a class="nav__link" href="{{ '/pages/blog' | relative_url }}">
+              <span data-hover="Blog">Blog</span>
+            </a>
           </li>
-          
           <li>
-            <a class="nav__link" href="{{ '/proyectos' | relative_url }}">Proyectos</a>
-            <ul class="sub-menu">
-              <li><a href="{{ '/proyectos/app-administrativa' | relative_url }}">App Administrativa</a></li>
-              <li><a href="{{ '/proyectos/videojuego-2d' | relative_url }}">Videojuego 2D</a></li>
-            </ul>
+            <a class="nav__link" href="{{ '/proyectos' | relative_url }}">
+              <span data-hover="Proyectos">Proyectos</span>
+            </a>
           </li>
-          
           <li>
-            <a class="nav__link" href="{{ '/servicios' | relative_url }}">Servicios</a>
-            <ul class="sub-menu">
-              <li><a href="{{ '/servicios/desarrollo-web' | relative_url }}">Desarrollo Web</a></li>
-              <li><a href="{{ '/servicios/diseno-grafico' | relative_url }}">Diseño Gráfico</a></li>
-              <li><a href="{{ '/servicios/programacion-movil' | relative_url }}">Programación Móvil</a></li>
-            </ul>
+            <a class="nav__link" href="{{ '/servicios' | relative_url }}">
+              <span data-hover="Servicios">Servicios</span>
+            </a>
           </li>
         </ul>
       </nav>
 
-      <!-- Botón Modo Oscuro / Claro -->
+      <!-- Botón Modo Oscuro -->
       <button id="themeToggle" class="theme-toggle-btn" aria-label="Cambiar Tema">
         <i class="fas fa-moon"></i>
       </button>
 
-      <!-- Botón Activador Hamburguesa (Estilo #2) -->
+      <!-- Hamburguesa Móvil -->
       <a href="#" class="nav__trigger" id="menuToggle" aria-label="Abrir Menú">
         <span class="nav__icon"></span>
       </a>
