@@ -19,20 +19,54 @@
               <span data-hover="Portal">Portal</span>
             </a>
           </li>
+
           <li>
             <a class="nav__link" href="{{ '/pages/blog' | relative_url }}">
               <span data-hover="Blog">Blog</span>
             </a>
           </li>
-          <li>
+
+          <!-- Ítem Proyectos con Submenú -->
+          <li class="has-submenu">
             <a class="nav__link" href="{{ '/proyectos' | relative_url }}">
               <span data-hover="Proyectos">Proyectos</span>
             </a>
+            <ul class="sub-menu">
+              <li>
+                <a href="{{ '/proyectos/app-inventario' | relative_url }}">
+                  <span data-hover="App de Inventario">App de Inventario</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ '/proyectos/videojuego-2d' | relative_url }}">
+                  <span data-hover="Videojuego 2D">Videojuego 2D</span>
+                </a>
+              </li>
+            </ul>
           </li>
-          <li>
+
+          <!-- Ítem Servicios con Submenú -->
+          <li class="has-submenu">
             <a class="nav__link" href="{{ '/servicios' | relative_url }}">
               <span data-hover="Servicios">Servicios</span>
             </a>
+            <ul class="sub-menu">
+              <li>
+                <a href="{{ '/servicios/desarrollo-web' | relative_url }}">
+                  <span data-hover="Desarrollo Web">Desarrollo Web</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ '/servicios/programacion-movil' | relative_url }}">
+                  <span data-hover="Programación Móvil">Programación Móvil</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ '/servicios/diseno-digital' | relative_url }}">
+                  <span data-hover="Diseño Digital">Diseño Digital</span>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>
