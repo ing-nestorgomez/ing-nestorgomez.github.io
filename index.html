@@ -51,7 +51,10 @@ title: Inicio
       <!-- Columna Izquierda: Imagen y Insignia -->
       <div class="featured-post__image-col">
         <div class="featured-post__card">
-          <img src="{{ featured.image | relative_url }}" alt="{{ featured.title }}" class="featured-post__img">
+          <!-- Enlace en la imagen -->
+          <a href="{{ featured.url | relative_url }}">
+            <img src="{{ featured.image | relative_url }}" alt="{{ featured.title }}" class="featured-post__img">
+          </a>
           <div class="featured-post__badge">
             <span class="featured-post__badge-num">★</span>
             <span class="featured-post__badge-text">Destacado</span>
@@ -62,7 +65,14 @@ title: Inicio
       <!-- Columna Derecha: Información del Post -->
       <div class="featured-post__content-col">
         <span class="section-subtitle">ARTÍCULO DESTACADO</span>
-        <h2 class="featured-post__title">{{ featured.title }}</h2>
+        
+        <!-- Enlace en el título -->
+        <h2 class="featured-post__title">
+          <a href="{{ featured.url | relative_url }}" style="color: inherit; text-decoration: none;">
+            {{ featured.title }}
+          </a>
+        </h2>
+        
         <p class="featured-post__desc">
           {% if featured.excerpt_custom %}
             {{ featured.excerpt_custom }}
@@ -70,7 +80,7 @@ title: Inicio
             {{ featured.excerpt | strip_html | truncate: 180 }}
           {% endif %}
         </p>
-        <!-- Cambiado a la clase program-card__link y texto "Leer más" -->
+        
         <a href="{{ featured.url | relative_url }}" class="program-card__link">
           Leer más <i class="fa-solid fa-arrow-right"></i>
         </a>
@@ -86,7 +96,6 @@ title: Inicio
   <div class="container">
     
     <div class="section-header text-center">
-      <!-- <span class="section-subtitle">NUESTRO BLOG</span> -->
       <h2 class="section-title">Últimas Publicaciones</h2>
     </div>
 
@@ -94,13 +103,21 @@ title: Inicio
       {% for post in site.posts limit:3 offset:1 %}
         <article class="program-card">
           <div class="program-card__image-wrapper">
-            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="program-card__img">
+            <!-- Enlace en la imagen -->
+            <a href="{{ post.url | relative_url }}" style="display: block; width: 100%; height: 100%;">
+              <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="program-card__img">
+            </a>
             <div class="program-card__icon-badge">
               <i class="fa-solid fa-newspaper"></i>
             </div>
           </div>
           <div class="program-card__body">
-            <h3 class="program-card__title">{{ post.title }}</h3>
+            <!-- Enlace en el título -->
+            <h3 class="program-card__title">
+              <a href="{{ post.url | relative_url }}" style="color: inherit; text-decoration: none;">
+                {{ post.title }}
+              </a>
+            </h3>
             <p class="program-card__desc">
               {% if post.excerpt_custom %}
                 {{ post.excerpt_custom }}
@@ -116,7 +133,6 @@ title: Inicio
       {% endfor %}
     </div>
 
-    <!-- BOTÓN INFERIOR CAMBIADO A "Ir al blog" -->
     <div class="programs-footer text-center">
       <a href="{{ '/pages/blog.html' | relative_url }}" class="btn btn--primary">
         Ir al blog <i class="fa-solid fa-arrow-right"></i>
