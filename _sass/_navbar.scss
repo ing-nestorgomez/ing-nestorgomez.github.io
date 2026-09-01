@@ -194,106 +194,73 @@ body.dark-mode .logo-dark-desktop { display: block; }
 }
 
 /* ==========================================
-   MENÚ ESTILO CODEPEN ADAPTADO A TU HTML
+   EFECTO 3D ROLLING LINKS (CODROPS EFFECT 2)
    ========================================== */
 
-$blue-dark: #044690;
-$blue-medium: #0078d4;
-$blue-light: #28a8ea;
+/* Variables de Color */
+$roll-bg-front: #044690;  /* Azul base (cara frontal) */
+$roll-bg-bottom: #0078d4; /* Azul intermedio (cara inferior al rodar) */
+$roll-bg-hover:  #28a8ea; /* Azul claro (hover resaltado) */
 
-.main-nav {
-  position: relative;
-  z-index: 100;
-
+.cl-effect-2 {
   ul {
+    display: flex;
     list-style: none;
-    padding: 0;
+    gap: 10px;
     margin: 0;
+    padding: 0;
   }
 
-  /* VERSIÓN DESKTOP */
-  @media (min-width: 769px) {
-    > ul {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+  a.nav__link {
+    line-height: 40px;
+    perspective: 1000px;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    display: inline-block;
 
-      > li {
-        position: relative;
-        padding: 10px 18px;
-        transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    span {
+      position: relative;
+      display: inline-block;
+      padding: 0 16px;
+      background: $roll-bg-front;
+      color: #ffffff;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      transition: transform 0.3s ease;
+      transform-origin: 50% 0;
+      transform-style: preserve-3d;
 
-        &:before {
-          content: '';
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: $blue-medium;
-          top: 0;
-          left: 0;
-          border-radius: 6px;
-          z-index: -1;
-          transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          transform: translateY(-100%) rotate(-3deg);
-          opacity: 0;
-        }
-
-        .nav__link {
-          text-decoration: none;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          font-size: 0.9rem;
-          transition: color 0.2s ease;
-        }
-
-        &:hover {
-          &:before {
-            transform: translateY(0) rotate(0deg);
-            opacity: 1;
-          }
-
-          .nav__link {
-            color: #ffffff !important;
-          }
-
-          .sub-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) rotateX(0deg);
-          }
-        }
+      &::before {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $roll-bg-bottom;
+        color: #ffffff;
+        content: attr(data-hover);
+        padding: 0 16px;
+        border-radius: 4px;
+        transition: background 0.3s ease;
+        transform: rotateX(-90deg);
+        transform-origin: 50% 0;
+        box-sizing: border-box;
       }
     }
 
-    .sub-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 200px;
-      background: $blue-dark;
-      border-radius: 0 0 8px 8px;
-      padding: 10px 0;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      visibility: hidden;
-      transform-origin: top center;
-      transform: translateY(-10px) rotateX(-15deg);
-      transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 10;
+    &:hover,
+    &:focus {
+      outline: none;
 
-      li {
-        display: block;
-        padding: 8px 20px;
+      span {
+        transform: rotateX(90deg) translateY(-20px);
 
-        a {
-          color: #ffffff;
-          font-size: 0.85rem;
-          display: block;
-        }
-
-        &:hover {
-          background: $blue-light;
+        &::before {
+          background: $roll-bg-hover;
         }
       }
     }
