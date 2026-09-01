@@ -360,3 +360,44 @@ body.dark-mode {
     color: #d0d0d0 !important;
   }
 }
+
+/* ((((((((((((((((((())))))))))))))))))))) 
+ efecto hover en títulos y enlaces del post
+   ((((((((((((((((((())))))))))))))))))))) */
+
+.program-card__title a {
+  transition: color 0.2s ease;
+  
+  &:hover {
+    color: #007acc; /* Ajusta este color al primario de tu tema */
+  }
+}
+
+/* ==========================================
+   EFECTOS HOVER: TÍTULOS Y ZOOM EN IMÁGENES
+   ========================================== */
+
+/* 1. Contenedor con recorte para el zoom */
+.program-card__image-wrapper {
+  overflow: hidden !important; /* Mantiene la imagen dentro de sus límites */
+}
+
+/* Transición suave para la imagen */
+.program-card__img {
+  transition: transform 0.3s ease !important;
+}
+
+/* Efecto zoom al pasar el cursor sobre la tarjeta o sobre la imagen */
+.program-card:hover .program-card__img,
+.program-card__image-wrapper:hover .program-card__img {
+  transform: scale(1.08) !important; /* Ajusta el valor si quieres más o menos zoom */
+}
+
+/* 2. Cambio de color en títulos al hacer hover */
+.program-card__title a {
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--primary-color, #007acc) !important; /* Cambia al color principal de tu tema */
+  }
+}
