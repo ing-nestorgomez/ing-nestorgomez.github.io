@@ -1,9 +1,18 @@
-// Variables del Menú
-$nav-color: #333333;
-$nav-color-dark: #ffffff;
-$duration: 300ms;
-$ease: ease-in-out;
+// ==========================================
+// VARIABLES DE NAVEGACIÓN Y MARCA
+// ==========================================
+$blue-dark:       #044690;
+$blue-medium:     #0078d4;
+$blue-light:      #28a8ea;
+$text-hover-dark: #2d3748;
 
+$nav-color:       #333333;
+$duration:        300ms;
+$ease:            ease-in-out;
+
+// ==========================================
+// ESTRUCTURA BASE DE CABECERA Y LOGOS
+// ==========================================
 .main-header {
   background-color: #ffffff;
   border-bottom: 1px solid #eaeaea;
@@ -20,7 +29,6 @@ $ease: ease-in-out;
   }
 }
 
-// Visibilidad de Logos
 .logo {
   display: flex;
   align-items: center;
@@ -28,26 +36,13 @@ $ease: ease-in-out;
   .site-logo {
     height: 42px;
     width: auto;
-    display: none; // Se ocultan todos por defecto
+    display: none; // Ocultos por defecto
   }
 }
 
-/* =========================================================
-   LOGOS GLOBALES (Visibles en Escritorio y Móvil)
-   ========================================================= */
+/* Visibilidad de Logos por Tema */
 body:not(.dark-mode) .logo-light-desktop { display: block; }
 body.dark-mode .logo-dark-desktop { display: block; }
-
-/* =========================================================
-   CAMBIO DE LOGO PARA MÓVILES (DESACTIVADO TEMPORALMENTE)
-   ========================================================= */
-/* 
-@media (max-width: 768px) {
-  body:not(.dark-mode) .logo-light-desktop { display: none; }
-  body.dark-mode .logo-dark-desktop { display: none; }
-  .logo-mobile { display: block !important; }
-}
-*/
 
 .nav-wrapper {
   display: flex;
@@ -55,7 +50,18 @@ body.dark-mode .logo-dark-desktop { display: block; }
   gap: 15px;
 }
 
-// Icono Hamburguesa Animado (Base + Style #2)
+// ==========================================
+// BOTÓN HAMBURGUESA Y MODO OSCURO
+// ==========================================
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #4a5568;
+  cursor: pointer;
+  padding: 5px;
+}
+
 .nav__trigger {
   display: none; // Oculto en escritorio
   position: relative;
@@ -88,11 +94,9 @@ body.dark-mode .logo-dark-desktop { display: block; }
   &:after { margin-top: 8px; }
 }
 
-/* Animación cuando el menú está activo (Style #2) */
+/* Animación de la Hamburguesa a "X" */
 .nav--active {
-  .nav__trigger {
-    opacity: 0.8;
-  }
+  .nav__trigger { opacity: 0.8; }
 
   .nav__icon {
     background: transparent !important;
@@ -102,7 +106,6 @@ body.dark-mode .logo-dark-desktop { display: block; }
       margin-top: 0;
       transform: rotate(90deg);
     }
-
     &:after {
       margin-top: 0;
       transform: rotate(180deg);
@@ -110,102 +113,11 @@ body.dark-mode .logo-dark-desktop { display: block; }
   }
 }
 
-// Lista del Menú
-.main-nav {
-  ul {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nav__link {
-    text-decoration: none;
-    color: #4a5568;
-    font-weight: 600;
-    transition: color 0.2s;
-
-    &:hover { color: #007acc; }
-  }
-}
-
-.theme-toggle-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.2rem;
-  color: #4a5568;
-  cursor: pointer;
-  padding: 5px;
-}
-
-/* Reglas Responsivas y Animación 3D (Móvil) */
-@media (max-width: 768px) {
-  .nav__trigger {
-    display: block;
-  }
-
-  .main-header {
-    perspective: 1000px; // Permite la animación 3D
-  }
-
-  .top-bar-left a {
-    /* Ocultamos el texto manteniendo el icono */
-    font-size: 0; /* Oculta el texto */
-    gap: 0;
-  }
-    
-  .top-bar-left a .fa-envelope {
-    font-size: 18px; /* Tamaño del icono en móvil */
-    margin-right: 0;
-  }
-
-  .main-nav {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background-color: #064690;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px 0;
-    
-    // Estado inicial plegado 3D
-    transform: rotateY(180deg);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform $duration $ease, opacity $duration $ease;
-
-    ul {
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-    .nav__link {
-      color: #fff;
-    }
-  }
-
-  // Estado Desplegado 3D
-  .nav--active .main-nav {
-    transform: rotateY(360deg);
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-/* ==========================================
-   NAVEGACIÓN CON SUBMENÚS 3D Y RESPONSIVE
-   ========================================== */
-
-/* Paleta de Marca y Colores */
-$blue-dark:   #044690;
-$blue-medium: #0078d4;
-$blue-light:  #28a8ea;
-$text-hover-dark: #2d3748; // Gris oscuro para el hover en submenús
-
-/* --- VERSIÓN DESKTOP (SOLO PANTALLAS GRANDES) --- */
+// ==========================================
+// VERSIÓN DESKTOP (> 768px) - EFECTOS 3D
+// ==========================================
 @media (min-width: 769px) {
-  .cl-effect-2 {
+  .main-nav {
     ul {
       display: flex;
       list-style: none;
@@ -217,6 +129,7 @@ $text-hover-dark: #2d3748; // Gris oscuro para el hover en submenús
     li {
       position: relative;
 
+      /* Despliegue de submenú en Hover */
       &.has-submenu:hover {
         .sub-menu {
           pointer-events: auto;
@@ -229,7 +142,12 @@ $text-hover-dark: #2d3748; // Gris oscuro para el hover en submenús
       }
     }
 
-    /* ROLLING LINKS PRINCIPALES */
+    /* Oculta la flecha desplegable en Escritorio */
+    .submenu-arrow {
+      display: none !important;
+    }
+
+    /* ROLLING LINKS (Efecto 3D al pasar el mouse) */
     a.nav__link {
       line-height: 40px;
       perspective: 1000px;
@@ -278,7 +196,7 @@ $text-hover-dark: #2d3748; // Gris oscuro para el hover en submenús
       }
     }
 
-    /* SUBMENÚ PERSIANA 3D EN CASCADA */
+    /* SUBMENÚ EN CASCADA 3D */
     .sub-menu {
       position: absolute;
       top: 100%;
@@ -299,19 +217,10 @@ $text-hover-dark: #2d3748; // Gris oscuro para el hover en submenús
         transform: rotateX(-90deg) translateY(-10px);
         transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-        /* Alternancia de los 3 Colores de Marca */
-        &:nth-child(1) {
-          transition-delay: 0.05s;
-          a { background: $blue-dark; }
-        }
-        &:nth-child(2) {
-          transition-delay: 0.12s;
-          a { background: $blue-medium; }
-        }
-        &:nth-child(3) {
-          transition-delay: 0.19s;
-          a { background: $blue-light; }
-        }
+        /* Cascada con Colores de Marca */
+        &:nth-child(1) { transition-delay: 0.05s; a { background: $blue-dark; } }
+        &:nth-child(2) { transition-delay: 0.12s; a { background: $blue-medium; } }
+        &:nth-child(3) { transition-delay: 0.19s; a { background: $blue-light; } }
 
         a {
           display: block;
@@ -325,11 +234,10 @@ $text-hover-dark: #2d3748; // Gris oscuro para el hover en submenús
           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
           transition: transform 0.2s ease, filter 0.2s ease, color 0.2s ease;
 
-          /* HOVER CON TEXTO GRIS OSCURO */
           &:hover {
             filter: brightness(1.15);
             transform: translateX(5px);
-            color: $text-hover-dark !important; 
+            color: $text-hover-dark !important;
           }
         }
       }
@@ -337,157 +245,148 @@ $text-hover-dark: #2d3748; // Gris oscuro para el hover en submenús
   }
 }
 
-/* --- VERSIÓN MÓVIL (SENCILLA TRADICIONAL) --- */
+// ==========================================
+// VERSIÓN MÓVIL (<= 768px) - MENÚ ACORDEÓN
+// ==========================================
 @media (max-width: 768px) {
-  .main-nav {
-    /* Limpieza de estilos 3D para móvil */
-    .nav__link span {
-      background: transparent !important;
-      padding: 0 !important;
-      transform: none !important;
+  .nav__trigger {
+    display: block;
+  }
 
-      &::before {
-        display: none !important; // Desactiva el duplicado 3D
-      }
+  .main-header {
+    perspective: 1000px;
+  }
+
+  .top-bar-left a {
+    font-size: 0;
+    gap: 0;
+
+    .fa-envelope {
+      font-size: 18px;
+      margin-right: 0;
     }
+  }
 
-    /* Submenús simples en lista plana */
-    .sub-menu {
+  /* Contenedor del Menú Móvil Desplegable */
+  .main-nav {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: $blue-dark;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 0;
+    
+    // Transición de apertura del contenedor principal
+    transform: rotateY(180deg);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform $duration $ease, opacity $duration $ease;
+
+    .nav__list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding-left: 15px;
-      margin-top: 8px;
+      width: 100%;
+      padding: 0;
+      margin: 0;
       list-style: none;
 
-      li a {
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 0.85rem;
-        background: transparent !important;
-        box-shadow: none !important;
+      li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-        &:hover {
-          color: $blue-light !important;
+        /* Limpieza de efectos 3D de escritorio */
+        .nav__link {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 20px;
+          background: $blue-dark;
+          color: #ffffff;
+          font-weight: 600;
+          text-decoration: none;
+          transition: background 0.3s ease;
+
+          span {
+            background: transparent !important;
+            padding: 0 !important;
+            transform: none !important;
+
+            &::before {
+              display: none !important;
+            }
+          }
+
+          .submenu-arrow {
+            font-size: 0.85rem;
+            transition: transform 0.3s ease;
+          }
+        }
+
+        /* Submenú en Acordeón */
+        .sub-menu {
+          max-height: 0;
+          overflow: hidden;
+          background: $blue-medium;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          transition: max-height 0.4s ease-in-out;
+
+          li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            a {
+              display: flex;
+              align-items: center;
+              padding: 12px 20px 12px 35px;
+              color: #ffffff;
+              text-decoration: none;
+              font-size: 0.9rem;
+              transition: background 0.2s ease;
+
+              .submenu-icon {
+                margin-right: 10px;
+                width: 18px;
+                text-align: center;
+              }
+
+              &:hover,
+              &:active {
+                background: $blue-light;
+                color: #ffffff !important;
+              }
+            }
+          }
+        }
+
+        /* Estado del Acordeón Abierto */
+        &.is-open {
+          .nav__link {
+            background: darken($blue-dark, 5%);
+
+            .submenu-arrow {
+              transform: rotate(180deg);
+              color: $blue-light;
+            }
+          }
+
+          .sub-menu {
+            max-height: 400px;
+          }
         }
       }
     }
   }
-}
 
-/* ==========================================
-   MENÚ MÓVIL EN ACORDEÓN (PANTALLAS PEQUEÑAS)
-   ========================================== */
-
-$blue-dark:   #044690;
-$blue-medium: #0078d4;
-$blue-light:  #28a8ea;
-
-@media (max-width: 768px) {
-  
-  .accordion-nav {
-    width: 100%;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
-
-    li {
-      position: relative;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-      /* Estilo del botón / ítem principal */
-      .link {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        padding: 14px 20px;
-        background: $blue-dark;
-        color: #ffffff;
-        font-size: 0.95rem;
-        font-weight: 600;
-        transition: background 0.3s ease, color 0.3s ease;
-
-        .menu-icon {
-          width: 24px;
-          margin-right: 10px;
-          font-size: 1rem;
-        }
-
-        .arrow-icon {
-          margin-left: auto;
-          font-size: 0.85rem;
-          transition: transform 0.3s ease;
-        }
-
-        /* Enlaces directos sin submenú (Portal / Blog) */
-        &.link-direct a {
-          display: flex;
-          align-items: center;
-          width: 100%;
-          color: #ffffff;
-          text-decoration: none;
-        }
-      }
-
-      /* Estado cuando el acordeón está desplegado */
-      &.open {
-        .link {
-          background: darken($blue-dark, 5%);
-          color: $blue-light;
-
-          .arrow-icon {
-            transform: rotate(180deg);
-            color: $blue-light;
-          }
-        }
-
-        /* Despliegue del submenú */
-        .submenu {
-          max-height: 300px; /* Permite animación fluida con CSS */
-        }
-      }
-    }
-
-    /* Submenús */
-    .submenu {
-      max-height: 0;
-      overflow: hidden;
-      background: $blue-medium;
-      list-style: none;
-      padding: 0;
-      transition: max-height 0.4s ease-in-out;
-
-      li {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-        &:last-child {
-          border-bottom: none;
-        }
-
-        a {
-          display: flex;
-          align-items: center;
-          padding: 12px 20px 12px 45px;
-          color: #ffffff;
-          text-decoration: none;
-          font-size: 0.88rem;
-          font-weight: 500;
-          transition: background 0.25s ease, color 0.25s ease;
-
-          .submenu-icon {
-            width: 20px;
-            margin-right: 8px;
-            font-size: 0.85rem;
-          }
-
-          /* Hover o Selección con Azul Claro de marca */
-          &:hover, 
-          &:active {
-            background: $blue-light;
-            color: #ffffff;
-          }
-        }
-      }
-    }
+  /* Estado cuando el Menú Móvil está visible */
+  .nav--active .main-nav {
+    transform: rotateY(360deg);
+    opacity: 1;
+    pointer-events: auto;
   }
 }
