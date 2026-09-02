@@ -5,6 +5,6 @@ window.addEventListener("load", () => {
     // Da un pequeño margen visual para prevenir parpadeos rápidos
     setTimeout(() => {
       preloader.classList.add("is-hidden");
-    }, 300);
+    }, 3000);
   }
 });
