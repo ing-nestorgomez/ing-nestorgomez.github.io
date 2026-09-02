@@ -1,0 +1,86 @@
+/* Variables de Marca */
+$blue-dark:   #044690;
+$blue-medium: #0078d4;
+$blue-light:  #28a8ea;
+
+/* Overlay Full Screen */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff; /* O el color de fondo de tu sitio */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999; /* Por encima de la cabecera */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+
+  &.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 200px;
+  width: 80%;
+}
+
+/* Animación del Logo (Pulso Suave) */
+.preloader-logo {
+  height: 50px;
+  width: auto;
+  animation: logoPulse 1.8s infinite ease-in-out;
+}
+
+/* Contenedor de la Barra */
+.preloader-bar-container {
+  width: 100%;
+  height: 4px;
+  background-color: rgba(4, 70, 144, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Barra con Degradado Animado */
+.preloader-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, $blue-dark, $blue-medium, $blue-light, $blue-dark);
+  background-size: 200% 100%;
+  border-radius: 10px;
+  animation: loadingBar 1.5s infinite linear;
+}
+
+/* Animaciones CSS */
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+}
+
+@keyframes loadingBar {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Modo Oscuro (Opcional, si tu sitio lo utiliza) */
+body.dark-mode .preloader {
+  background-color: #121212;
+}
