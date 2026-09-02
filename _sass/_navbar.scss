@@ -374,3 +374,120 @@ $text-hover-dark: #2d3748; // Gris oscuro para el hover en submenús
     }
   }
 }
+
+/* ==========================================
+   MENÚ MÓVIL EN ACORDEÓN (PANTALLAS PEQUEÑAS)
+   ========================================== */
+
+$blue-dark:   #044690;
+$blue-medium: #0078d4;
+$blue-light:  #28a8ea;
+
+@media (max-width: 768px) {
+  
+  .accordion-nav {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+
+    li {
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+      /* Estilo del botón / ítem principal */
+      .link {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 14px 20px;
+        background: $blue-dark;
+        color: #ffffff;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: background 0.3s ease, color 0.3s ease;
+
+        .menu-icon {
+          width: 24px;
+          margin-right: 10px;
+          font-size: 1rem;
+        }
+
+        .arrow-icon {
+          margin-left: auto;
+          font-size: 0.85rem;
+          transition: transform 0.3s ease;
+        }
+
+        /* Enlaces directos sin submenú (Portal / Blog) */
+        &.link-direct a {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          color: #ffffff;
+          text-decoration: none;
+        }
+      }
+
+      /* Estado cuando el acordeón está desplegado */
+      &.open {
+        .link {
+          background: darken($blue-dark, 5%);
+          color: $blue-light;
+
+          .arrow-icon {
+            transform: rotate(180deg);
+            color: $blue-light;
+          }
+        }
+
+        /* Despliegue del submenú */
+        .submenu {
+          max-height: 300px; /* Permite animación fluida con CSS */
+        }
+      }
+    }
+
+    /* Submenús */
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      background: $blue-medium;
+      list-style: none;
+      padding: 0;
+      transition: max-height 0.4s ease-in-out;
+
+      li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        a {
+          display: flex;
+          align-items: center;
+          padding: 12px 20px 12px 45px;
+          color: #ffffff;
+          text-decoration: none;
+          font-size: 0.88rem;
+          font-weight: 500;
+          transition: background 0.25s ease, color 0.25s ease;
+
+          .submenu-icon {
+            width: 20px;
+            margin-right: 8px;
+            font-size: 0.85rem;
+          }
+
+          /* Hover o Selección con Azul Claro de marca */
+          &:hover, 
+          &:active {
+            background: $blue-light;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}
