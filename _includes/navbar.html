@@ -10,82 +10,87 @@
     </div>
 
     <!-- Navegación y Acciones -->
-    <div class="nav-wrapper">
+<div class="nav-wrapper">
+  
+  <nav class="main-nav cl-effect-2" id="mainNav">
+    <ul class="nav__list">
       
-      <nav class="main-nav cl-effect-2" id="mainNav">
-        <ul class="nav__list">
+      <!-- PORTAL -->
+      <li>
+        <a class="nav__link" href="{{ '/' | relative_url }}">
+          <span data-hover="Portal"><i class="fa-solid fa-house-chimney"></i> Portal</span>
+        </a>
+      </li>
+
+      <!-- BLOG -->
+      <li>
+        <a class="nav__link" href="{{ '/pages/blog' | relative_url }}">
+          <span data-hover="Blog"><i class="fa-solid fa-book"></i> Blog</span>
+        </a>
+      </li>
+
+      <!-- PROYECTOS -->
+      <li class="has-submenu">
+        <a class="nav__link" href="javascript:void(0);">
+          <span data-hover="Proyectos"><i class="fa-solid fa-lightbulb"></i> Proyectos</span>
+          <i class="fa-solid fa-chevron-down submenu-arrow"></i>
+        </a>
+        <ul class="sub-menu">
           <li>
-            <a class="nav__link" href="{{ '/' | relative_url }}">
-              
-              <span data-hover="Portal"><i class="fa-solid fa-house-chimney"></i> Portal</span>
+            <a href="{{ '/proyectos/app-inventario' | relative_url }}">
+              <i class="fa-solid fa-boxes-stacked submenu-icon"></i> App de Inventario
             </a>
           </li>
-
           <li>
-            <a class="nav__link" href="{{ '/pages/blog' | relative_url }}">
-              
-              <span data-hover="Blog"><i class="fa-solid fa-book"></i> Blog</span>
+            <a href="{{ '/proyectos/videojuego-2d' | relative_url }}">
+              <i class="fa-solid fa-gamepad submenu-icon"></i> Videojuego 2D
             </a>
-          </li>
-
-          <!-- Ítem Proyectos con Submenú -->
-          <li class="has-submenu">
-            <a class="nav__link">
-              
-              <span data-hover="Proyectos"><i class="fa-solid fa-lightbulb"></i> Proyectos</span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="{{ '/proyectos/app-inventario' | relative_url }}">
-                  <span data-hover="App de Inventario">App de Inventario</span>
-                </a>
-              </li>
-              <li>
-                <a href="{{ '/proyectos/videojuego-2d' | relative_url }}">
-                  <span data-hover="Videojuego 2D">Videojuego 2D</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <!-- Ítem Servicios con Submenú -->
-          <li class="has-submenu">
-            <a class="nav__link">
-              
-              <span data-hover="Servicios"><i class="fa-solid fa-tag"></i> Servicios</span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="{{ '/servicios/desarrollo-web' | relative_url }}">
-                  <span data-hover="Desarrollo Web">Desarrollo Web</span>
-                </a>
-              </li>
-              <li>
-                <a href="{{ '/servicios/programacion-movil' | relative_url }}">
-                  <span data-hover="Programación Móvil">Programación Móvil</span>
-                </a>
-              </li>
-              <li>
-                <a href="{{ '/servicios/diseno-digital' | relative_url }}">
-                  <span data-hover="Diseño Digital">Diseño Digital</span>
-                </a>
-              </li>
-            </ul>
           </li>
         </ul>
-      </nav>
+      </li>
 
-      <!-- Botón Modo Oscuro -->
-      <button id="themeToggle" class="theme-toggle-btn" aria-label="Cambiar Tema">
-        <i class="fas fa-moon"></i>
-      </button>
+      <!-- SERVICIOS -->
+      <li class="has-submenu">
+        <a class="nav__link" href="javascript:void(0);">
+          <span data-hover="Servicios"><i class="fa-solid fa-tag"></i> Servicios</span>
+          <i class="fa-solid fa-chevron-down submenu-arrow"></i>
+        </a>
+        <ul class="sub-menu">
+          <li>
+            <a href="{{ '/servicios/desarrollo-web' | relative_url }}">
+              <i class="fa-solid fa-code submenu-icon"></i> Desarrollo Web
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/servicios/programacion-movil' | relative_url }}">
+              <i class="fa-solid fa-mobile-screen-button submenu-icon"></i> Programación Móvil
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/servicios/diseno-digital' | relative_url }}">
+              <i class="fa-solid fa-palette submenu-icon"></i> Diseño Digital
+            </a>
+          </li>
+        </ul>
+      </li>
 
-      <!-- Hamburguesa Móvil -->
-      <a href="#" class="nav__trigger" id="menuToggle" aria-label="Abrir Menú">
-        <span class="nav__icon"></span>
-      </a>
+    </ul>
+  </nav>
 
-    </div>
+  <!-- Botón Modo Oscuro -->
+  <button id="themeToggle" class="theme-toggle-btn" aria-label="Cambiar Tema">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Hamburguesa Móvil -->
+  <a href="#" class="nav__trigger" id="menuToggle" aria-label="Abrir Menú">
+    <span class="nav__icon"></span>
+  </a>
+
+</div>
+
+<!-- Carga del JS del Acordeón Móvil -->
+<script src="{{ '/assets/js/accordion-menu.js' | relative_url }}"></script>
 
   </div>
 </header>
