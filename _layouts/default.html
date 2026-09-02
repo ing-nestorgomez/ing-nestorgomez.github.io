@@ -10,7 +10,9 @@
   <link rel="icon" href="/assets/images/logo-c.svg" type="image/svg+xml">
 </head>
 <body>
-
+<!-- 1. PRECARGADOR (DEBE IR AL PRINCIPIO DEL BODY) -->
+  {% include preloader.html %}
+  
   {% include topbar.html %}
   {% include navbar.html %}
 
@@ -77,5 +79,8 @@
   
   <!-- Tu script del Hero Slider -->
   <script src="{{ '/assets/js/hero-slider.js' | relative_url }}"></script>
+
+  <!-- Scripts -->
+  <script src="{{ '/assets/js/preloader.js' | relative_url }}"></script>
 </body>
 </html>
