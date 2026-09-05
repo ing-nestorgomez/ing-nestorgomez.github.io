@@ -10,6 +10,14 @@ body {
   line-height: 1.6;
 }
 
+/* Aplicar Orbitron a todos los títulos del sitio */
+h1, h2, h3, h4, h5, h6,
+.post-title,
+.widget-title {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.5px; /* Opcional: mejora la legibilidad de fuentes estilizadas */
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
