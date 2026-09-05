@@ -28,6 +28,37 @@ h1, h2, h3, h4, h5, h6,
   }
 }
 
+/* Estilo moderno para citas (blockquote) */
+.post-body,
+.page-content {
+  blockquote {
+    border-left: 4px solid #0078d4;
+    background-color: #f8fafc;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0; /* Asegura espacio arriba y abajo (separación con párrafos) */
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #334155;
+
+    p {
+      margin-bottom: 0; /* Evita márgenes extra dentro de la misma cita */
+      text-align: left;  /* Mantiene lectura natural para citas cortas */
+    }
+  }
+}
+
+/* Adaptación para Modo Oscuro */
+body.dark-mode {
+  .post-body,
+  .page-content {
+    blockquote {
+      background-color: #1e293b;
+      border-left-color: #38bdf8;
+      color: #e2e8f0;
+    }
+  }
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
