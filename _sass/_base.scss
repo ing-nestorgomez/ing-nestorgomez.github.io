@@ -18,6 +18,14 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: 0.5px; /* Opcional: mejora la legibilidad de fuentes estilizadas */
 }
 
+/* Color para todos los títulos dentro del contenido individual */
+.post-body,
+.page-content {
+  h1, h2, h3, h4, h5, h6 {
+    color: #0078d4;
+  }
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
