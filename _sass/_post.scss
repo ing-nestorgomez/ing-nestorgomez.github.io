@@ -49,10 +49,20 @@
   }
 }
 
+/* Estilos para el Cuerpo del Post (Ajustados para Párrafos) */
 .post-body {
   line-height: 1.8;
   font-size: 1.1rem;
   margin-bottom: 40px;
+
+  p {
+    text-align: justify;       /* Texto justificado */
+    margin-bottom: 1.5rem;      /* Espaciado entre párrafos */
+
+    &:last-child {
+      margin-bottom: 0;        /* Remueve el margen innecesario al final */
+    }
+  }
 
   img {
     max-width: 100%;
