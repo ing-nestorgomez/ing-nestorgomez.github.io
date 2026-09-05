@@ -18,11 +18,13 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: 0.5px; /* Opcional: mejora la legibilidad de fuentes estilizadas */
 }
 
-/* Color para todos los títulos dentro del contenido individual */
+/* Color y espaciado para todos los títulos dentro del contenido individual */
 .post-body,
 .page-content {
   h1, h2, h3, h4, h5, h6 {
     color: #0078d4;
+    margin-top: 2rem;      /* Espacio antes del título para separarlo del bloque anterior */
+    margin-bottom: 1rem;   /* Espacio después del título antes del siguiente párrafo */
   }
 }
 
