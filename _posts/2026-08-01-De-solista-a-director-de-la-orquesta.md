@@ -24,7 +24,7 @@ Tenía (y tengo aún guardados) varios proyectos en mi mente. Por mi forma de se
 
 > **Sé lo que estarás pensando:** *¿por qué dos?* Lo correcto sería dedicarme por completo solo a uno, centrar mis esfuerzos en ese y ya luego de terminarlo continuar con el otro. Eso es lo ideal y de hecho lo intenté, pero llegado un punto uno se cansa de intentar por un mismo camino y prefiere variar la ruta, especialmente en mi caso que tengo una especie de **hiperactividad mental**, que me dificulta mantener el foco en una sola meta por largo tiempo.
 
-No digo que eso esté bien, por el contrario, sé que es uno de mis grandes defectos y lo admito. Pero aun así creo que tiene partes positivas el ser así, de modo que ahora que cuento con este superpoder que me da la IA, estoy intentando no reprimir, sino más bien **aprovechar en lo posible toda esa creatividad de la que dispongo**.
+No digo que eso esté bien, por el contrario, sé que es uno de mis grandes defectos y lo admito. Pero aun así creo que tiene partes positivas, de modo que ahora que cuento con este superpoder que me da la IA, estoy intentando no reprimir, sino más bien **aprovechar en lo posible toda esa creatividad de la que dispongo**.
 
 ### Dos proyectos, dos naturalezas distintas
 
