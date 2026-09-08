@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "De solista a director de la orquesta: Cómo la IA me permitió avanzar en meses lo que no logré en años"
+title: "De solista a director de orquesta: Cómo la IA me permitió avanzar en meses lo que no logré en años"
 date: 2026-09-04 10:00:00 -0400
 categories: [productividad, ia, desarrollo]
 tags: [ia, productividad, desarrollo, freelance, arquitectura]
