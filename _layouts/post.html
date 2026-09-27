@@ -104,19 +104,37 @@ layout: default
     <!-- SIDEBAR DERECHO -->
     <aside class="post-sidebar">
       
-      <!-- Widget: Sobre el autor -->
-      <div class="sidebar-widget">
-        <h4 class="widget-title">Sobre el autor</h4>
-        <div class="widget-author">
-          <img src="{{ '/assets/images/logo-rotsen.svg' | relative_url }}" alt="Rotsen" class="author-avatar">
-          <p><strong>Rotsen Zemog</strong></p>
-          <p class="author-bio">Escribiendo relatos de ciencia ficción, worldbuilding y reflexiones entre la ingeniería y las letras.</p>
+      <!-- Widget: Servicios Freelance -->
+      <div class="sidebar-widget services-widget">
+        <div class="services-header">
+          <i class="fa-solid fa-briefcase"></i>
+          <span>Servicios Freelance</span>
         </div>
+        <ul class="services-list">
+          <li>
+            <a href="{{ '/servicios/#desarrollo-web' | relative_url }}">
+              <i class="fa-solid fa-code"></i>
+              <span>Desarrollo Web / Móvil</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/servicios/#full-stack' | relative_url }}">
+              <i class="fa-solid fa-layer-group"></i>
+              <span>Programación Full-Stack</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ '/servicios/#diseno-interactivo' | relative_url }}">
+              <i class="fa-solid fa-pen-nib"></i>
+              <span>Diseño Digital Interactivo</span>
+            </a>
+          </li>
+        </ul>
       </div>
 
       <!-- Widget: Últimas publicaciones -->
       <div class="sidebar-widget">
-        <h4 class="widget-title">Recientes</h4>
+        <h4 class="widget-title">Posts recientes</h4>
         <ul class="recent-posts-list">
           {% for post in site.posts limit:5 %}
             <li>
