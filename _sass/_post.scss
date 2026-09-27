@@ -276,3 +276,101 @@ body.dark-mode {
     border-color: rgba(255, 255, 255, 0.1) !important;
   }
 }
+
+/* Widget de Servicios Freelance (Sidebar) */
+.services-widget {
+  padding: 0 !important;
+  overflow: hidden;
+
+  .services-header {
+    background-color: #0078d4;
+    color: #ffffff;
+    padding: 14px 18px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    i {
+      font-size: 1.1rem;
+    }
+  }
+
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      border-bottom: 1px solid #e2e8f0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 18px;
+        color: #1e293b;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+
+        i {
+          font-size: 1rem;
+          color: #0078d4;
+          width: 20px;
+          text-align: center;
+          transition: color 0.2s ease;
+        }
+
+        &:hover {
+          background-color: #f1f5f9;
+          color: #0078d4;
+          padding-left: 22px; /* Efecto sutil de desplazamiento al pasar el cursor */
+
+          i {
+            color: #005a9e;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Soporte para Modo Oscuro (.dark-mode) */
+body.dark-mode {
+  .services-widget {
+    background-color: #202020 !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+
+    .services-header {
+      background-color: #0078d4;
+      color: #ffffff;
+    }
+
+    .services-list {
+      li {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+
+        a {
+          color: #d0d0d0;
+
+          i {
+            color: #38bdf8;
+          }
+
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #38bdf8;
+          }
+        }
+      }
+    }
+  }
+}
