@@ -4,7 +4,7 @@ title: "De solista a director de orquesta: Cómo la IA me permitió avanzar en m
 date: 2026-09-04 10:00:00 -0400
 categories: [productividad, ia, desarrollo]
 tags: [ia, productividad, desarrollo, freelance, arquitectura]
-image: "assets/images/programador-ia.webp)"
+image: "assets/images/programador-ia.webp"
 excerpt_custom: "Descubre cómo la IA pasó de ser mi 'gurú' a ser mi 'empleada', permitiéndome avanzar en 6 meses lo que no pude en 6 años. Una historia real de transformación de solista a director de orquesta digital."
 ---
 
